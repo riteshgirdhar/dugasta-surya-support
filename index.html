@@ -41,7 +41,7 @@ function mail(){const t=S.t,p=S.p;const b=`Ticket ${t.code} (${p.severity})\nPla
 return `mailto:${SURYA}?cc=${encodeURIComponent(p.reporter_email)}&subject=${encodeURIComponent(`[${t.code}] ${p.severity} ${p.playbook} — ${p.reporter_name}`)}&body=${encodeURIComponent(b)}`;}
 function done(){const t=S.t,db=t.mode==='db';
 app.innerHTML=`<div class="card"><div class="mu">Ticket created</div><div class="tid mono">${t.code}</div><span class="st">${t.status}</span>
-<p>${db?'Saved in the Dugasta support queue. Surya is notified by email.':'<span class="warn">Saved on this device (central queue not switched on yet). <b>Send the email below</b> so Surya receives it.</span>'}</p>
+<p>${db?'Saved in the Dugasta support queue. Check your email for confirmation; if you don’t see it, use Email ticket below.':'<span class="warn">Saved on this device (central queue not switched on yet). <b>Send the email below</b> so Surya receives it.</span>'}</p>
 <div class="row"><a href="${mail()}"><button class="b ${db?'':'p'}">${db?'Also email Surya (optional)':'Email ticket to Surya'}</button></a><a href="t.html?t=${t.code}"><button class="b">Open status page</button></a><button class="b" onclick="navigator.clipboard.writeText('${t.code}')">Copy ID</button></div></div>
 <div class="card" id="bk"><h2>Want 15 minutes with Surya?</h2><p class="mu">Only for P1/P2 or if it’s easier to show on screen.</p><div class="slots" id="sl">Loading…</div></div>`;slots();}
 let AV=null;fetch('./availability.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{AV=j;const busy=j.status==='busy';dot.className='dot '+(busy?'busy':'free');av.textContent=busy?'Surya in a meeting':(j.status_label||'Surya available');if(document.getElementById('sl'))slots();}).catch(()=>av.textContent='Calendar pending');
@@ -50,7 +50,7 @@ if(!fr.length){el.textContent='No open slots right now — your ticket is in the
 el.innerHTML=fr.map(s=>{const a=new Date(s.start);return `<button class="b slot" onclick="book('${s.start}')">${a.toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Dubai'})} Dubai</button>`}).join('');}
 function book(st){const a=new Date(st),b=new Date(a.getTime()+9e5),f=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
 window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(`[${S.t.code}] LSQ support · 15 min`)}&details=${encodeURIComponent(`Ticket ${S.t.code}\n${S.p.summary}`)}&dates=${f(a)}/${f(b)}&add=${SURYA}`,'_blank');
-document.getElementById('bk').innerHTML='<h2>Invite opened</h2><p class="mu">Save it in Google Calendar to lock the slot with Surya.</p>';}
+document.getElementById('bk').innerHTML='<h2>Invite opened</h2><p class="mu">Save the invite in Google Calendar — it requests the slot; it isn’t reserved until Surya accepts.</p>';}
 document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea,select'))return;const k=Object.keys(PB)[+e.key-1];if(k)pb(k);});
 home();
 </script></body></html>
