@@ -1,0 +1,1 @@
+{"LSQ-DEMO-0001":{"code":"LSQ-DEMO-0001","status":"Investigating","severity":"P2","playbook":"Duplicate leads","created_at":"2026-11-06T00:30:00+04:00","summary":"Demo ticket: same client created twice (+971 vs 0 prefix). Both Lead IDs shared.","surya_note":"Demo — merge queued with Admin."}}
