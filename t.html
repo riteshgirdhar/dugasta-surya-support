@@ -1,0 +1,14 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ticket status · LSQ Desk</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body>
+<header><a class="logo" href="./" style="color:inherit;text-decoration:none">LSQ<span>·</span>Desk</a><span class="mu">Ticket status</span></header>
+<main><h1>Track a ticket</h1><div class="row"><input id="q" class="mono" placeholder="LSQ-0001" style="max-width:260px"><button class="b p" onclick="go()">Check</button></div><div id="out"></div></main>
+<script src="desk.js"></script><script>
+const ST=['Open','Investigating','Fixed','Closed'];
+async function go(){const c=q.value.trim();if(!c)return;history.replaceState(0,'','?t='+encodeURIComponent(c.toUpperCase()));out.innerHTML='<p class="mu">Looking up…</p>';const t=await getTicket(c);
+if(!t){out.innerHTML='<div class="card">No ticket <b class="mono">'+esc(c)+'</b> found. Check the ID from your confirmation.</div>';return;}
+const i=Math.max(0,ST.indexOf(t.status));out.innerHTML=`<div class="card"><div class="tid mono">${esc(t.code)}</div><span class="st">${esc(t.status)}</span> <span class="mu">${esc(t.severity||'')} · ${esc(t.playbook||'')}</span>
+<div class="tl">${ST.map((s,j)=>`<span class="${j<=i?'on':''}" title="${s}"></span>`).join('')}</div><div class="mu" style="font-size:12px">${ST.join(' → ')}</div>
+<p>${esc(t.summary||'')}</p>${t.surya_note?`<p><b>Surya:</b> ${esc(t.surya_note)}</p>`:''}
+<p class="mu" style="font-size:12px">Raised ${new Date(t.created_at).toLocaleString('en-GB',{timeZone:'Asia/Dubai'})} Dubai · source: ${t.mode==='db'?'central queue':t.mode==='mirror'?'support log':'this device only'}</p></div>`;}
+const u=new URLSearchParams(location.search).get('t');if(u){q.value=u;go();}q.onkeydown=e=>e.key==='Enter'&&go();
+</script></body></html>
