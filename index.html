@@ -2,183 +2,273 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Surya Support — LeadSquared</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="theme-color" content="#f5f5f7"/>
+<title>LSQ Assist</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0f172a;color:#f8fafc}
-.wrap{max-width:720px;margin:0 auto;padding:24px 16px 48px}
-.badge{display:inline-block;font-size:12px;color:#38bdf8;border:1px solid #0ea5e9;border-radius:999px;padding:4px 10px;margin-bottom:12px}
-h1{font-size:26px;margin:0 0 8px}.lead{color:#94a3b8;margin:0 0 16px}
-.status{padding:12px 14px;border-radius:12px;border:1px solid #1f2937;background:#111827;margin-bottom:14px;font-weight:600}
-.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
-.dot.free{background:#34d399}.dot.busy{background:#f87171}
-.card{background:#111827;border:1px solid #1f2937;border-radius:14px;padding:18px;margin-bottom:14px}
-h2{font-size:17px;margin:0 0 10px}
-label{display:block;font-size:13px;color:#94a3b8;margin:10px 0 6px}
-input,select,textarea{width:100%;background:#0b1220;border:1px solid #334155;border-radius:10px;color:#f8fafc;padding:11px;font:inherit}
-textarea{min-height:88px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:560px){.row{grid-template-columns:1fr}}
-button.submit,button.tab{width:100%;border:0;border-radius:12px;padding:13px;font-weight:600;font-size:15px;cursor:pointer}
-button.submit{margin-top:14px;background:#38bdf8;color:#082f49}
-button.submit:disabled{opacity:.45}
-.tabs{display:flex;gap:8px;margin-bottom:12px}
-.tab{background:#0b1220;border:1px solid #334155;color:#f8fafc}
-.tab.active{border-color:#38bdf8;color:#38bdf8}
-.hidden{display:none}.note{font-size:13px;color:#94a3b8;margin-top:8px}
-.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;max-height:280px;overflow:auto}
-.slot{border:1px solid #334155;background:#0b1220;color:#f8fafc;border-radius:10px;padding:10px;cursor:pointer;font:inherit;text-align:left}
-.slot.free:hover,.slot.selected{border-color:#38bdf8;color:#38bdf8}
-.slot.busy{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+:root{--bg:#f5f5f7;--card:#fff;--ink:#1d1d1f;--muted:#6e6e73;--line:rgba(0,0,0,.08);--blue:#0071e3;--green:#34c759;--red:#ff3b30}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);overflow:hidden}
+#scene{position:fixed;inset:0;z-index:0}
+.ui{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;pointer-events:none}
+.top{padding:20px 20px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.brand{pointer-events:auto}
+.brand .eye{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.brand h1{font-size:clamp(28px,5vw,40px);letter-spacing:-.04em;line-height:1}
+.status{pointer-events:auto;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:500}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.dot.free{background:var(--green);box-shadow:0 0 0 3px rgba(52,199,89,.2)}
+.dot.busy{background:var(--red);box-shadow:0 0 0 3px rgba(255,59,48,.2)}
+.center{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 16px 16px;max-width:720px;width:100%;margin:0 auto}
+.bubble{pointer-events:auto;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:22px;padding:16px 18px;box-shadow:0 10px 40px rgba(0,0,0,.06);margin-bottom:12px;min-height:72px}
+.bubble .who{font-size:12px;font-weight:600;color:var(--blue);margin-bottom:6px}
+.bubble p{font-size:16px;line-height:1.4;letter-spacing:-.01em}
+.chips{pointer-events:auto;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip,.btn{border:0;cursor:pointer;font:inherit}
+.chip{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:999px;padding:10px 14px;font-size:13px;font-weight:500;color:var(--ink)}
+.chip:hover,.chip.on{background:var(--ink);color:#fff}
+.row{pointer-events:auto;display:flex;gap:8px}
+.row input{flex:1;border:1px solid var(--line);border-radius:16px;padding:14px 16px;font:inherit;font-size:15px;background:rgba(255,255,255,.95);outline:none}
+.btn{border-radius:16px;padding:14px 16px;font-weight:600;font-size:14px}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.dark{background:var(--ink);color:#fff}
+.btn.ghost{background:rgba(255,255,255,.9);border:1px solid var(--line)}
+.panel{pointer-events:auto;display:none;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:20px;padding:14px;margin-bottom:12px;max-height:220px;overflow:auto}
+.panel.open{display:block}
+.slot{width:100%;text-align:left;background:#f5f5f7;border:0;border-radius:12px;padding:12px;margin:6px 0;font:inherit;cursor:pointer}
+.slot:hover{background:#e8e8ed}
+.gate{position:fixed;inset:0;z-index:5;background:rgba(245,245,247,.92);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center}
+.gate.hidden{display:none}
+.gate-card{background:#fff;border-radius:28px;padding:36px 28px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.08);max-width:360px;margin:20px}
+.gate-card h2{font-size:28px;letter-spacing:-.03em;margin:12px 0 8px}
+.gate-card p{color:var(--muted);margin-bottom:22px}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="badge">Dugasta · Dubai → Surya</div>
-  <h1>LeadSquared support</h1>
-  <p class="lead">Report an issue to Surya’s email, or book a call on his Google Calendar.</p>
-  <div class="status"><span class="dot free" id="statusDot"></span><span id="statusText">Checking…</span></div>
-  <div class="tabs">
-    <button class="tab active" type="button" id="tabIssue">Report an issue</button>
-    <button class="tab" type="button" id="tabBook">Book a call</button>
-  </div>
-
-  <div class="card" id="panelIssue">
-    <h2>Report an issue</h2>
-    <form id="issueForm">
-      <div class="row">
-        <div><label>Your name *</label><input name="name" required/></div>
-        <div><label>Your email *</label><input name="email" type="email" required/></div>
-      </div>
-      <label>Issue type *</label>
-      <select name="issue_type" required>
-        <option value="">Select…</option>
-        <option>Lead ownership / assignment</option>
-        <option>Lead stage or data wrong</option>
-        <option>LeadSquared login or access</option>
-        <option>Call / WhatsApp / activity issue</option>
-        <option>Report or KPI help</option>
-        <option>Other</option>
-      </select>
-      <div class="row">
-        <div><label>Lead ID</label><input name="lead_id"/></div>
-        <div><label>Lead name or phone</label><input name="lead_ref"/></div>
-      </div>
-      <label>What is the issue *</label>
-      <textarea name="issue" required></textarea>
-      <label>What you need from Surya *</label>
-      <textarea name="need" required></textarea>
-      <label>Screenshot link (Drive / image)</label>
-      <input name="screenshot_link" placeholder="https://…"/>
-      <button class="submit" type="submit">Email Surya</button>
-      <p class="note">Opens your email to surya@dugasta.co with the details filled in. Attach screenshots in that email if needed.</p>
-    </form>
-  </div>
-
-  <div class="card hidden" id="panelBook">
-    <h2>Book a call</h2>
-    <p class="note" style="margin-top:0">Mon–Sat 9:00am–6:00pm IST · 30 min. Grey = already busy on Surya’s calendar.</p>
-    <div class="slots" id="slotList"></div>
-    <form id="bookForm">
-      <div class="row">
-        <div><label>Your name *</label><input name="name" required/></div>
-        <div><label>Your email *</label><input name="email" type="email" required/></div>
-      </div>
-      <label>Topic *</label>
-      <textarea name="topic" required></textarea>
-      <button class="submit" id="bookBtn" type="submit" disabled>Select a free slot</button>
-      <p class="note">Opens Google Calendar with Surya invited for that slot. Save the event to put it on his calendar.</p>
-    </form>
+<div id="scene"></div>
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div style="font-size:42px">◇</div>
+    <h2>LSQ Assist</h2>
+    <p>Your LeadSquared guide. Tap to start — I’ll talk you through it.</p>
+    <button class="btn primary" id="startBtn" style="width:100%">Start</button>
   </div>
 </div>
-<script>
-const SURYA='surya@dugasta.co';
-let selected=null;
-document.getElementById('tabIssue').onclick=()=>{
-  tabIssue.classList.add('active');tabBook.classList.remove('active');
-  panelIssue.classList.remove('hidden');panelBook.classList.add('hidden');
-};
-document.getElementById('tabBook').onclick=()=>{
-  tabBook.classList.add('active');tabIssue.classList.remove('active');
-  panelBook.classList.remove('hidden');panelIssue.classList.add('hidden');
-};
-const tabIssue=document.getElementById('tabIssue');
-const tabBook=document.getElementById('tabBook');
-const panelIssue=document.getElementById('panelIssue');
-const panelBook=document.getElementById('panelBook');
+<div class="ui">
+  <div class="top">
+    <div class="brand">
+      <div class="eye">Dugasta · Dubai</div>
+      <h1>LSQ Assist</h1>
+    </div>
+    <div class="status"><span class="dot" id="dot"></span><span id="statusText">Checking…</span></div>
+  </div>
+  <div class="center">
+    <div class="bubble"><div class="who">LSQ Assist</div><p id="speech">Hi — I’m here to help with LeadSquared.</p></div>
+    <div class="chips" id="chips"></div>
+    <div class="panel" id="bookPanel"></div>
+    <div class="row">
+      <input id="msg" placeholder="Type what’s wrong…" autocomplete="off"/>
+      <button class="btn primary" id="send">Send</button>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <button class="btn dark" id="liveChat" style="flex:1">Open live chat</button>
+      <button class="btn ghost" id="bookBtn">Book Surya</button>
+    </div>
+  </div>
+</div>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
 
-function gcalDates(startIso,endIso){
-  const fmt=iso=>{
-    const d=new Date(iso);
-    const p=n=>String(n).padStart(2,'0');
-    return d.getUTCFullYear()+p(d.getUTCMonth()+1)+p(d.getUTCDate())+'T'+p(d.getUTCHours())+p(d.getUTCMinutes())+p(d.getUTCSeconds())+'Z';
-  };
-  return fmt(startIso)+'/'+fmt(endIso);
+const BOT = 'https://x.ai/bot/agent/108e478b-a7ed-5a22-bfc9-587e7ec9595b';
+const SURYA = 'surya@dugasta.co';
+let talking = false, avail = null, voiceReady = false;
+
+const speechEl = document.getElementById('speech');
+const chipsEl = document.getElementById('chips');
+const bookPanel = document.getElementById('bookPanel');
+const dot = document.getElementById('dot');
+const statusText = document.getElementById('statusText');
+
+const INTENTS = [
+  {id:'owner', label:'Who owns a lead?'},
+  {id:'dup', label:'Duplicate lead'},
+  {id:'reassign', label:'Reassign / send to Faiz'},
+  {id:'user', label:'Create LSQ user'},
+  {id:'book', label:'Book a call'},
+  {id:'other', label:'Something else'},
+];
+
+const GUIDES = {
+  owner: "Paste the phone or email in live chat and I’ll look up the owner and stage in LeadSquared right away.",
+  dup: "Share the number or screenshot in live chat. I’ll find every matching lead and owners, then help fix the duplicate.",
+  reassign: "Tell me who should own it — for example Faiz — and paste the phones or screenshot. I’ll move them, and I never touch Meeting Fixed leads.",
+  user: "In live chat, send the name, email, and team. I’ll create the LeadSquared user with the right timezone after a quick check.",
+  book: "Here are Surya’s free slots. Pick one and it opens Google Calendar with him invited.",
+  other: "Describe the issue in live chat, or book a call if it’s blocking sales today. I’ll guide you either way.",
+};
+
+function speak(text){
+  speechEl.textContent = text;
+  talking = true;
+  try{
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 1.02; u.pitch = 1.05;
+    const vs = speechSynthesis.getVoices();
+    const pref = vs.find(v=>/en(-|_)?(US|GB|IN)?/i.test(v.lang) && /female|samantha|google|zira|jenny/i.test(v.name)) || vs.find(v=>/^en/i.test(v.lang));
+    if(pref) u.voice = pref;
+    u.onend = ()=>{ talking=false };
+    speechSynthesis.speak(u);
+  }catch(e){ talking=false }
 }
 
-document.getElementById('issueForm').onsubmit=(e)=>{
-  e.preventDefault();
-  const f=new FormData(e.target);
-  const subject='[LSQ Support] '+f.get('issue_type')+' — '+f.get('name');
-  const body=[
-    'Name: '+f.get('name'),
-    'Email: '+f.get('email'),
-    'Issue type: '+f.get('issue_type'),
-    'Lead ID: '+f.get('lead_id'),
-    'Lead name/phone: '+f.get('lead_ref'),
-    '',
-    'Issue:',
-    f.get('issue'),
-    '',
-    'Need from Surya:',
-    f.get('need'),
-    '',
-    'Screenshot: '+f.get('screenshot_link')
-  ].join('\\n');
-  location.href='mailto:'+SURYA+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-};
-
-document.getElementById('bookForm').onsubmit=(e)=>{
-  e.preventDefault();
-  if(!selected){alert('Pick a free slot');return;}
-  const f=new FormData(e.target);
-  const text='Support call — '+f.get('name');
-  const details='Topic: '+f.get('topic')+'\\nBooked by: '+f.get('name')+' <'+f.get('email')+'>\\nFrom Dugasta LSQ support portal';
-  const dates=gcalDates(selected.start, selected.end);
-  const url='https://calendar.google.com/calendar/render?action=TEMPLATE'
-    +'&text='+encodeURIComponent(text)
-    +'&dates='+dates
-    +'&details='+encodeURIComponent(details)
-    +'&add='+encodeURIComponent(SURYA)
-    +'&ctz=Asia/Kolkata';
-  window.open(url,'_blank');
-};
-
-fetch('./availability.json?ts='+Date.now()).then(r=>r.json()).then(data=>{
-  const busy=data.status==='busy';
-  document.getElementById('statusDot').className='dot '+(busy?'busy':'free');
-  document.getElementById('statusText').textContent=(busy?'Busy now':'Free now')+' · '+data.window;
-  const list=document.getElementById('slotList');
-  list.innerHTML='';
-  data.slots.forEach(s=>{
-    const b=document.createElement('button');
-    b.type='button';
-    b.className='slot '+(s.free?'free':'busy');
-    b.textContent=s.label+(s.free?'':' · taken');
-    b.disabled=!s.free;
-    if(s.free){
-      b.onclick=()=>{
-        selected=s;
-        [...list.children].forEach(x=>x.classList.remove('selected'));
-        b.classList.add('selected');
-        const btn=document.getElementById('bookBtn');
-        btn.disabled=false;
-        btn.textContent='Book '+s.label;
-      };
-    }
-    list.appendChild(b);
+function renderChips(){
+  chipsEl.innerHTML = '';
+  INTENTS.forEach(it=>{
+    const b = document.createElement('button');
+    b.className = 'chip'; b.textContent = it.label;
+    b.onclick = ()=> runIntent(it.id);
+    chipsEl.appendChild(b);
   });
-}).catch(()=>{document.getElementById('statusText').textContent='Could not load calendar';});
+}
+
+function runIntent(id){
+  [...chipsEl.children].forEach(c=>c.classList.toggle('on', c.textContent===INTENTS.find(i=>i.id===id)?.label));
+  const g = GUIDES[id];
+  speak(g);
+  if(id==='book'){ openBook(); }
+  else { bookPanel.classList.remove('open'); }
+}
+
+function openBook(){
+  bookPanel.classList.add('open');
+  const slots = (avail?.slots||[]).filter(s=>s.free!==false && !s.busy).slice(0,18);
+  if(!slots.length){
+    bookPanel.innerHTML = '<p style="color:#6e6e73;font-size:14px">No free slots loaded. Use live chat or try again shortly.</p>';
+    return;
+  }
+  bookPanel.innerHTML = '<div style="font-size:13px;font-weight:600;margin-bottom:6px">Free 30‑min slots (IST)</div>';
+  slots.forEach(s=>{
+    const start = new Date(s.start || s.begin || s.from);
+    const end = new Date(s.end || s.to || (start.getTime()+30*60000));
+    const btn = document.createElement('button');
+    btn.className = 'slot';
+    btn.textContent = start.toLocaleString('en-IN',{weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'}) + ' IST';
+    btn.onclick = ()=> bookSlot(start,end);
+    bookPanel.appendChild(btn);
+  });
+}
+
+function bookSlot(start,end){
+  const fmt = d=> d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  const title = encodeURIComponent('LSQ Support call with Surya');
+  const details = encodeURIComponent('Booked via LSQ Assist');
+  const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${fmt(start)}/${fmt(end)}&add=${encodeURIComponent(SURYA)}`;
+  window.open(url,'_blank');
+  speak("Great — I opened Google Calendar with Surya invited for that slot. Save the invite to lock it.");
+}
+
+function handleText(t){
+  const s = t.toLowerCase();
+  if(/book|call|meet|slot|calendar/.test(s)) return runIntent('book');
+  if(/owner|who own|belong/.test(s)) return runIntent('owner');
+  if(/dup|already exist|exists/.test(s)) return runIntent('dup');
+  if(/reassign|faiz|move|send to|transfer/.test(s)) return runIntent('reassign');
+  if(/create user|new user|onboard/.test(s)) return runIntent('user');
+  speak("Got it. Open live chat and paste the details or a screenshot — I’ll take it from there. Or book Surya if you need him on a call.");
+}
+
+document.getElementById('send').onclick = ()=>{
+  const i = document.getElementById('msg');
+  if(!i.value.trim()) return;
+  handleText(i.value.trim()); i.value='';
+};
+document.getElementById('msg').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('send').click(); });
+document.getElementById('liveChat').onclick = ()=> window.open(BOT,'_blank');
+document.getElementById('bookBtn').onclick = ()=> runIntent('book');
+
+document.getElementById('startBtn').onclick = ()=>{
+  document.getElementById('gate').classList.add('hidden');
+  voiceReady = true;
+  speak("Hi, I'm LSQ Assist. Tell me what's wrong with LeadSquared and I'll guide you. Pick a topic below, or just type.");
+};
+
+renderChips();
+
+// --- Three.js guide ---
+const mount = document.getElementById('scene');
+const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.setClearColor(0xf5f5f7, 1);
+mount.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(42, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(0, 0.15, 3.2);
+
+const hemi = new THREE.HemisphereLight(0xffffff, 0xb0b0b8, 1.1);
+scene.add(hemi);
+const key = new THREE.DirectionalLight(0xffffff, 0.85);
+key.position.set(2,3,4); scene.add(key);
+
+const guide = new THREE.Group();
+scene.add(guide);
+
+const bodyMat = new THREE.MeshStandardMaterial({color:0x1d1d1f, metalness:0.2, roughness:0.45});
+const accentMat = new THREE.MeshStandardMaterial({color:0x0071e3, emissive:0x0071e3, emissiveIntensity:0.15, metalness:0.3, roughness:0.35});
+const eyeMat = new THREE.MeshStandardMaterial({color:0xffffff, emissive:0x9ecbff, emissiveIntensity:0.4});
+
+const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.45, 0.7, 8, 16), bodyMat);
+torso.position.y = -0.15; guide.add(torso);
+const head = new THREE.Mesh(new THREE.SphereGeometry(0.38, 32, 32), bodyMat);
+head.position.y = 0.85; guide.add(head);
+const visor = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.12, 0.08), accentMat);
+visor.position.set(0, 0.88, 0.34); guide.add(visor);
+const eyeL = new THREE.Mesh(new THREE.SphereGeometry(0.045, 16, 16), eyeMat);
+const eyeR = eyeL.clone();
+eyeL.position.set(-0.1, 0.88, 0.36); eyeR.position.set(0.1, 0.88, 0.36);
+guide.add(eyeL, eyeR);
+const mouth = new THREE.Mesh(new THREE.CapsuleGeometry(0.04, 0.02, 4, 8), accentMat);
+mouth.position.set(0, 0.72, 0.35); guide.add(mouth);
+const ring = new THREE.Mesh(new THREE.TorusGeometry(0.7, 0.02, 12, 64), new THREE.MeshStandardMaterial({color:0x0071e3, transparent:true, opacity:0.35}));
+ring.rotation.x = Math.PI/2; ring.position.y = -0.75; guide.add(ring);
+
+const floor = new THREE.Mesh(new THREE.CircleGeometry(2.2, 64), new THREE.MeshStandardMaterial({color:0xe8e8ed, roughness:1}));
+floor.rotation.x = -Math.PI/2; floor.position.y = -1.05; scene.add(floor);
+
+addEventListener('resize', ()=>{
+  camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+let t0 = performance.now();
+function animate(now){
+  requestAnimationFrame(animate);
+  const t = (now-t0)/1000;
+  guide.position.y = Math.sin(t*1.2)*0.04;
+  guide.rotation.y = Math.sin(t*0.5)*0.15;
+  ring.rotation.z = t*0.4;
+  const talk = talking ? (0.08 + Math.abs(Math.sin(t*18))*0.12) : 0.04;
+  mouth.scale.set(1, talking?1.8:1, 1);
+  mouth.position.y = 0.72 - (talking?0.01:0);
+  accentMat.emissiveIntensity = talking ? 0.35 + Math.sin(t*20)*0.2 : 0.12;
+  eyeL.scale.setScalar(talking?1.15:1); eyeR.scale.setScalar(talking?1.15:1);
+  renderer.render(scene, camera);
+}
+requestAnimationFrame(animate);
+
+fetch('./availability.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{
+  avail = j;
+  const freeNow = j.free_now ?? j.status === 'free' ?? j.is_free;
+  const busy = j.busy_now || j.status === 'busy';
+  if(busy){ dot.className='dot busy'; statusText.textContent='Surya is in a meeting'; }
+  else { dot.className='dot free'; statusText.textContent = freeNow===false ? 'Surya’s calendar loaded' : 'Surya is free now'; }
+  // normalize slots
+  if(!avail.slots && Array.isArray(avail.availability)) avail.slots = avail.availability;
+  if(!avail.slots && Array.isArray(avail)) avail = {slots:avail};
+}).catch(()=>{ statusText.textContent='Calendar sync pending'; });
 </script>
 </body>
 </html>
