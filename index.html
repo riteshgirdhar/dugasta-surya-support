@@ -1,257 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="theme-color" content="#070B14"/>
-<title>LSQ Assist</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<style>
-:root{
-  --bg:#0B0D12;
-  --bg2:#0E1118;
-  --panel:rgba(20,25,34,.86);
-  --panel-solid:#141922;
-  --line:rgba(244,247,251,.08);
-  --text:#F4F7FB;
-  --muted:#929CAF;
-  --accent:#B8F23A;
-  --accent-2:#5B94FD;
-  --accent-soft:#24351F;
-  --ok:#B8F23A;
-  --danger:#FF6B8A;
-  --radius:16px;
-  --shadow:0 28px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.04) inset;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  color:var(--text); background:var(--bg); overflow:hidden;
-  -webkit-font-smoothing:antialiased;
-}
-.bg{
-  position:fixed; inset:0; z-index:0; pointer-events:none;
-  background:
-    radial-gradient(900px 520px at 10% -10%, rgba(91,148,253,.18), transparent 58%),
-    radial-gradient(700px 460px at 92% 6%, rgba(184,242,58,.10), transparent 55%),
-    radial-gradient(560px 380px at 50% 108%, rgba(23,17,90,.35), transparent 52%),
-    linear-gradient(180deg, #0B0D12 0%, #0E1118 100%);
-}
-.orb{
-  position:absolute; border-radius:50%; filter:blur(40px); opacity:.55;
-  animation:float 12s ease-in-out infinite;
-}
-.orb.a{width:260px;height:260px;left:-70px;top:18%;background:#5B94FD;opacity:.35}
-.orb.b{width:200px;height:200px;right:-50px;top:58%;background:#B8F23A;opacity:.22;animation-delay:-4s}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
-.app{
-  position:relative; z-index:1; max-width:800px; margin:0 auto; height:100%;
-  display:flex; flex-direction:column; padding:22px 16px 16px;
-}
-.top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:16px}
-.brand .eyebrow{
-  display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:600;
-  letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:8px;
-}
-.brand .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
-.brand h1{font-size:clamp(26px,5vw,34px); font-weight:700; letter-spacing:-.04em; line-height:1.05}
-.brand p{margin-top:6px; color:var(--muted); font-size:14px; max-width:34ch; line-height:1.4}
-.pill{
-  display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
-  background:rgba(255,255,255,.04); border:1px solid var(--line); backdrop-filter:blur(12px);
-  font-size:12px; color:var(--muted); font-weight:500;
-}
-.dot{width:7px;height:7px;border-radius:50%;background:#556}
-.dot.free{background:var(--ok); box-shadow:0 0 0 3px rgba(184,242,58,.22)}
-.dot.busy{background:var(--danger); box-shadow:0 0 0 3px rgba(255,107,138,.2)}
-.shell{
-  flex:1; min-height:0; display:flex; flex-direction:column;
-  background:var(--panel); border:1px solid var(--line); border-radius:18px;
-  box-shadow:var(--shadow); backdrop-filter:blur(22px); overflow:hidden;
-}
-.chat{flex:1; min-height:0; overflow:auto; padding:20px 18px; display:flex; flex-direction:column; gap:14px}
-.msg{max-width:88%; display:flex; flex-direction:column; gap:8px}
-.msg.bot{align-self:flex-start}
-.msg.user{align-self:flex-end}
-.bubble{
-  padding:13px 15px; border-radius:18px; font-size:14.5px; line-height:1.5; letter-spacing:-.01em;
-  white-space:pre-wrap;
-}
-.msg.bot .bubble{
-  background:var(--panel-solid);
-  border:1px solid var(--line); border-bottom-left-radius:6px;
-}
-.msg.user .bubble{
-  background:var(--accent);
-  color:#0B0D12; border-bottom-right-radius:6px;
-  box-shadow:0 10px 28px rgba(184,242,58,.22);
-}
-.choices{display:flex;flex-wrap:wrap;gap:8px}
-.choice{
-  border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--text);
-  border-radius:999px; padding:10px 13px; font:inherit; font-size:13px; font-weight:500; cursor:pointer;
-  transition:border-color .15s, background .15s, transform .15s;
-}
-.choice:hover{border-color:rgba(184,242,58,.45); background:var(--accent-soft); transform:translateY(-1px)}
-.composer{
-  display:flex; gap:10px; padding:14px; border-top:1px solid var(--line);
-  background:rgba(7,11,20,.35);
-}
-.composer textarea{
-  flex:1; resize:none; min-height:50px; max-height:120px; border-radius:16px;
-  border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--text);
-  padding:14px 14px; font:inherit; font-size:14.5px; outline:none;
-}
-.composer textarea:focus{border-color:rgba(184,242,58,.55); box-shadow:0 0 0 3px rgba(184,242,58,.14)}
-.composer button, .primary{
-  border:0; border-radius:16px; padding:0 18px; min-height:50px; font:inherit; font-weight:600; font-size:14px;
-  background:var(--accent); color:#0B0D12; cursor:pointer;
-  box-shadow:0 10px 28px rgba(184,242,58,.28);
-}
-.composer button:disabled{opacity:.35; cursor:not-allowed; box-shadow:none}
-.slots{display:grid; grid-template-columns:1fr 1fr; gap:8px}
-@media(max-width:560px){.slots{grid-template-columns:1fr}}
-.slot{
-  text-align:left; border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--text);
-  border-radius:16px; padding:12px 13px; font:inherit; font-size:13px; cursor:pointer;
-}
-.slot:hover{border-color:rgba(184,242,58,.45); background:var(--accent-soft)}
-.note{color:var(--muted); font-size:12px; line-height:1.4}
-.summary{
-  background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:16px; padding:14px;
-  font-size:13px; color:var(--muted); display:grid; gap:6px;
-}
-.summary b{color:var(--text); font-weight:600}
-.actions{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px}
-</style>
-</head>
-<body>
-<div class="bg"><div class="orb a"></div><div class="orb b"></div></div>
-<div class="app">
-  <div class="top">
-    <div class="brand">
-      <div class="eyebrow"><i></i> Dugasta support</div>
-      <h1>LSQ Assist</h1>
-      <p>I’ll walk the RCA with you, then email Surya a clean brief.</p>
-    </div>
-    <div class="pill"><span class="dot" id="dot"></span><span id="statusText">Checking…</span></div>
-  </div>
-  <div class="shell">
-    <div class="chat" id="chat" aria-live="polite"></div>
-    <div class="composer">
-      <textarea id="input" rows="1" placeholder="Type your reply…" disabled></textarea>
-      <button id="send" disabled>Send</button>
-    </div>
-  </div>
-</div>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LSQ Desk · Dugasta</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<header><div class="logo">LSQ<span>·</span>Desk</div><span class="mu">Dugasta Dubai · LeadSquared support</span><div class="sp"></div>
+<a class="pill" href="t.html">Track ticket</a><div class="pill"><span class="dot" id="dot"></span><span id="av">Checking Surya…</span></div></header>
+<main id="app"></main>
+<script src="desk.js"></script>
 <script>
-const SURYA='surya@dugasta.co';
-const chat=document.getElementById('chat');
-const input=document.getElementById('input');
-const sendBtn=document.getElementById('send');
-const state={name:'',email:'',issueType:'',description:'',leadRef:'',tried:'',screenshot:'',step:0,avail:null};
-const ISSUE_TYPES=['Lead ownership / assignment','Duplicate lead','Lead stage or data wrong','Login / access','Call / WhatsApp / activity','Report or KPI','Other'];
-
-function scrollBottom(){chat.scrollTop=chat.scrollHeight}
-function addBot(text,extra){
-  const wrap=document.createElement('div'); wrap.className='msg bot';
-  const b=document.createElement('div'); b.className='bubble'; b.textContent=text; wrap.appendChild(b);
-  if(extra) wrap.appendChild(extra);
-  chat.appendChild(wrap); scrollBottom();
-}
-function addUser(text){
-  const wrap=document.createElement('div'); wrap.className='msg user';
-  const b=document.createElement('div'); b.className='bubble'; b.textContent=text; wrap.appendChild(b);
-  chat.appendChild(wrap); scrollBottom();
-}
-function setInput(on,ph){ input.disabled=!on; sendBtn.disabled=!on; input.placeholder=ph||'Type your reply…'; if(on) setTimeout(()=>input.focus(),40); }
-function choiceRow(options,onPick){
-  const row=document.createElement('div'); row.className='choices';
-  options.forEach(o=>{
-    const btn=document.createElement('button'); btn.className='choice'; btn.type='button'; btn.textContent=o;
-    btn.onclick=()=>{ row.querySelectorAll('button').forEach(x=>x.disabled=true); onPick(o); };
-    row.appendChild(btn);
-  });
-  return row;
-}
-function askName(){ state.step=1; addBot("Hi — I’m LSQ Assist. I’ll ask a few questions, then email a clean RCA to Surya. What’s your name?"); setInput(true,'Your name'); }
-function askEmail(){ state.step=2; addBot(`Nice to meet you, ${state.name}. What’s the best email to reach you on?`); setInput(true,'you@company.com'); }
-function askType(){ state.step=3; setInput(false); addBot('What kind of LeadSquared issue is this?', choiceRow(ISSUE_TYPES,v=>{state.issueType=v; addUser(v); askDescription();})); }
-function askDescription(){ state.step=4; addBot('In a few lines: what happened, and what should be happening instead?'); setInput(true,'Describe the issue…'); }
-function askLead(){ state.step=5; addBot('Any lead phone, email, or Lead ID I should include? Type “skip” if none.'); setInput(true,'Phone / email / Lead ID'); }
-function askTried(){ state.step=6; addBot('What have you already tried?'); setInput(true,'What you tried…'); }
-function askShot(){ state.step=7; addBot('Optional: paste a screenshot link (Drive / image). Or type “skip”.'); setInput(true,'https://… or skip'); }
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function finishRCA(){
-  state.step=8; setInput(false);
-  const box=document.createElement('div'); box.className='summary';
-  box.innerHTML=`<div><b>Name:</b> ${esc(state.name)}</div><div><b>Email:</b> ${esc(state.email)}</div><div><b>Type:</b> ${esc(state.issueType)}</div><div><b>Lead ref:</b> ${esc(state.leadRef||'—')}</div><div><b>Issue:</b> ${esc(state.description)}</div><div><b>Tried:</b> ${esc(state.tried)}</div><div><b>Screenshot:</b> ${esc(state.screenshot||'—')}</div>`;
-  const actions=document.createElement('div'); actions.className='actions';
-  const send=document.createElement('button'); send.className='primary'; send.textContent='Email RCA to Surya';
-  send.onclick=()=>{ sendMailto(); afterEmail(); };
-  actions.appendChild(send);
-  const wrap=document.createElement('div'); wrap.appendChild(box); wrap.appendChild(actions);
-  addBot('Here’s the RCA summary. I’ll open an email to Surya with this filled in — hit send in your mail app.', wrap);
-}
-function sendMailto(){
-  const subject=`[LSQ Support] ${state.issueType} — ${state.name}`;
-  const body=`LSQ Assist RCA\n\nFrom: ${state.name} <${state.email}>\nIssue type: ${state.issueType}\nLead ref: ${state.leadRef||'n/a'}\n\nWhat happened:\n${state.description}\n\nAlready tried:\n${state.tried}\n\nScreenshot: ${state.screenshot||'n/a'}\n\n— sent via LSQ Assist`;
-  location.href=`mailto:${SURYA}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
-function afterEmail(){
-  state.step=9;
-  addBot('RCA is ready for Surya’s inbox. Want a 15‑minute call with him? I’ll only show open times.',
-    choiceRow(['Yes, book 15 min','No, that’s enough'], v=>{
-      addUser(v);
-      if(v.startsWith('Yes')) showBooking();
-      else addBot('All set. You can close this page — Surya will get the RCA from your email.');
-    })
-  );
-}
-function showBooking(){
-  state.step=10;
-  const free=(state.avail?.slots||[]).filter(s=>s.free).slice(0,24);
-  if(!free.length){ addBot('No free windows on the calendar right now. The RCA email is still the best next step.'); return; }
-  const wrap=document.createElement('div');
-  const note=document.createElement('div'); note.className='note'; note.textContent='15‑minute sessions · Mon–Sat 9am–6pm IST';
-  const grid=document.createElement('div'); grid.className='slots';
-  free.forEach(s=>{
-    const start=new Date(s.start); const end=new Date(start.getTime()+15*60000);
-    const btn=document.createElement('button'); btn.type='button'; btn.className='slot';
-    btn.textContent=start.toLocaleString('en-IN',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'})+' · 15 min';
-    btn.onclick=()=>book(start,end,s.label||'');
-    grid.appendChild(btn);
-  });
-  wrap.appendChild(note); wrap.appendChild(grid);
-  addBot('Pick a free slot — I’ll open Google Calendar with Surya invited.', wrap);
-}
-function book(start,end,label){
-  const fmt=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
-  const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('LSQ support — 15 min with Surya')}&details=${encodeURIComponent(`Booked via LSQ Assist\nReporter: ${state.name} <${state.email}>\nIssue: ${state.issueType}\n${state.description}`)}&dates=${fmt(start)}/${fmt(end)}&add=${encodeURIComponent(SURYA)}`;
-  window.open(url,'_blank');
-  addUser(label||start.toISOString());
-  addBot('Calendar opened with a 15‑minute invite for Surya. Save it to lock the slot. You’re done.');
-}
-function onSend(){
-  const text=input.value.trim(); if(!text||input.disabled) return;
-  input.value=''; addUser(text);
-  if(state.step===1){ state.name=text; askEmail(); return; }
-  if(state.step===2){ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)){ addBot('That doesn’t look like an email. Try again?'); return;} state.email=text; askType(); return; }
-  if(state.step===4){ state.description=text; askLead(); return; }
-  if(state.step===5){ state.leadRef=/^skip$/i.test(text)?'':text; askTried(); return; }
-  if(state.step===6){ state.tried=text; askShot(); return; }
-  if(state.step===7){ state.screenshot=/^skip$/i.test(text)?'':text; finishRCA(); return; }
-}
-sendBtn.onclick=onSend;
-input.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); onSend(); }});
-fetch('./availability.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{
-  state.avail=j; const busy=j.status==='busy'||j.busy_now;
-  document.getElementById('dot').className='dot '+(busy?'busy':'free');
-  document.getElementById('statusText').textContent=busy?'Surya in a meeting':(j.status_label||'Surya available');
-}).catch(()=>{document.getElementById('statusText').textContent='Calendar pending';});
-askName();
-</script>
-</body>
-</html>
+const PB={
+own:{t:'Lead ownership',d:'Lead with wrong RM / can’t see a lead',steps:['Search the lead by phone in LSQ → open it → check the “Owner” field.','If owner is wrong: only Admin/TL can reassign — ask your TL first (Manage Leads → Change Owner).','If you can’t see it at all: it may be owned by another team; your view only shows your leads.','Refresh after 2–3 min — auto-assignment rules can take a moment.']},
+dup:{t:'Duplicate leads',d:'Same client appears twice',steps:['Search by phone AND email — LSQ dedupes on email/phone, so different formats (+971 vs 0) create duplicates.','Do NOT delete either copy — note both Lead IDs.','Check which copy has the latest activity; that one should be kept.','Merge needs Admin — raise a ticket with both Lead IDs.']},
+stage:{t:'Wrong stage / status',d:'Stage stuck, jumped, or won’t update',steps:['Open lead → Activity History: see which activity/automation changed the stage.','Some stages are locked by mandatory fields — open the stage change form and look for red required fields.','If an automation keeps reverting it, stop editing and raise a ticket (it will loop).']},
+login:{t:'Login / OTP / access',d:'Can’t sign in, OTP not coming, locked',steps:['Use the exact work email; try an incognito window.','OTP: wait 60s, check spam/promotions, don’t request more than 3 times (lockout ~15 min).','Mobile app: log out fully, update the app, log in again.','Still locked → ticket with your email + screenshot of the error.']},
+calls:{t:'Calls (Knowlarity)',d:'Calls not logging, can’t dial, no recording',steps:['Check your agent number is correct in your LSQ profile.','Call logs sync with delay — wait 10 min before reporting.','Recording missing: only answered calls > few seconds are recorded.','Can’t dial: check mic/browser permission, then try the mobile app.']},
+rep:{t:'Reports / dashboards',d:'Numbers wrong or report missing',steps:['Check the date filter and timezone (reports may use IST vs Dubai time).','Check owner/team filter — you may only see your own data.','Export to Excel and compare 2–3 sample leads against the lead records.','Still mismatched → ticket with report name + filters + the sample Lead IDs.']},
+other:{t:'Something else',d:'Not listed above',steps:[]}};
+const S={};const app=document.getElementById('app');
+function home(){app.innerHTML=`<h1>What’s broken in LeadSquared?</h1><p class="mu">Pick one. Most issues are fixed in 2 minutes with the steps. If not, you’ll get a ticket ID Surya works from — no WhatsApp chasing.</p>
+<div class="grid">${Object.entries(PB).map(([k,p],i)=>`<button class="chip" onclick="pb('${k}')"><span class="k mono">${i+1}</span><b>${p.t}</b><small>${p.d}</small></button>`).join('')}</div>
+<div class="card"><h2>Already raised one?</h2><div class="row" style="margin:0"><input id="q" class="mono" placeholder="LSQ-0001" style="max-width:220px"><button class="b" onclick="location.href='t.html?t='+encodeURIComponent(q.value)">Check status</button></div></div>
+<p class="mu" style="font-size:12px">SLA · <b>P1</b> team blocked: 1h · <b>P2</b> one user blocked: 4h · <b>P3</b> how-to/annoyance: next business day (Surya’s hours Mon–Sat 09:00–18:00 IST)</p>`;}
+function pb(k){S.pb=k;const p=PB[k];if(!p.steps.length)return rca();
+app.innerHTML=`<div class="crumb"><a onclick="home()">Desk</a> / ${p.t}</div><h1>${p.t}</h1><div class="card"><h2>Try this first</h2><ol class="steps">${p.steps.map(s=>`<li>${s}</li>`).join('')}</ol>
+<div class="row"><button class="b g" onclick="fixed()">✓ Fixed</button><button class="b p" onclick="rca()">Still broken → raise ticket</button></div></div>`;}
+function fixed(){app.innerHTML=`<div class="card"><h1>Great — sorted.</h1><p class="mu">Nothing sent to Surya. Logged as self-solved on this device.</p><button class="b" onclick="home()">Back to Desk</button></div>`;try{const n=JSON.parse(localStorage.lsqFixed||'{}');n[S.pb]=(n[S.pb]||0)+1;localStorage.lsqFixed=JSON.stringify(n)}catch(e){}}
+function rca(){const p=PB[S.pb],me=JSON.parse(localStorage.lsqMe||'{}');
+app.innerHTML=`<div class="crumb"><a onclick="home()">Desk</a> / ${p.t} / Ticket</div><h1>Raise a ticket</h1><p class="mu">Fill it once, properly — Surya fixes it without calling you back for details.</p>
+<form class="card" id="f"><div class="two"><div><label>Your name <i>*</i></label><input name="reporter_name" required value="${esc(me.n)}"></div><div><label>Work email <i>*</i></label><input name="reporter_email" type="email" required value="${esc(me.e)}"></div></div>
+<div class="two"><div><label>Team <i>*</i></label><select name="team" required><option value="">Select…</option><option>Sales RM</option><option>DST</option><option>Team Lead</option><option>Marketing</option><option>Admin/Ops</option></select></div>
+<div><label>Impact <i>*</i></label><select name="severity" required><option value="">Select…</option><option value="P1">P1 · whole team blocked</option><option value="P2">P2 · I’m blocked</option><option value="P3">P3 · annoying / how-to</option></select></div></div>
+<label>Lead ID / phone / email affected <i>*</i> <span class="mu">(type “none” if not lead-specific)</span></label><input name="lead_ref" class="mono" required>
+<label>What happened? <i>*</i></label><textarea name="summary" required minlength="10" placeholder="Steps you did, what you saw, exact error text"></textarea>
+<label>What should happen instead? <i>*</i></label><textarea name="expected" required></textarea>
+<label>Already tried</label><input name="tried" value="${p.steps.length?'Followed Desk playbook: '+p.t:''}">
+<label>Screenshot link (optional) — Drive / Imgur / any URL</label><input name="screenshot_url" type="url" placeholder="https://">
+<div class="row"><button class="b p" id="sb">Create ticket</button><button type="button" class="b" onclick="pb(S.pb)">Back</button></div></form>`;
+f.onsubmit=async e=>{e.preventDefault();sb.disabled=true;sb.textContent='Creating…';const p=Object.fromEntries(new FormData(f));p.playbook=PB[S.pb].t;p.ua=navigator.userAgent;
+localStorage.lsqMe=JSON.stringify({n:p.reporter_name,e:p.reporter_email});S.t=await createTicket(p);S.p=p;done();};}
+function mail(){const t=S.t,p=S.p;const b=`Ticket ${t.code} (${p.severity})\nPlaybook: ${p.playbook}\nFrom: ${p.reporter_name} <${p.reporter_email}> · ${p.team}\nLead ref: ${p.lead_ref}\n\nWhat happened:\n${p.summary}\n\nExpected:\n${p.expected}\n\nTried: ${p.tried||'-'}\nScreenshot: ${p.screenshot_url||'-'}\n\nStatus: ${location.origin+location.pathname.replace(/index\.html$/,'')}t.html?t=${t.code}`;
+return `mailto:${SURYA}?cc=${encodeURIComponent(p.reporter_email)}&subject=${encodeURIComponent(`[${t.code}] ${p.severity} ${p.playbook} — ${p.reporter_name}`)}&body=${encodeURIComponent(b)}`;}
+function done(){const t=S.t,db=t.mode==='db';
+app.innerHTML=`<div class="card"><div class="mu">Ticket created</div><div class="tid mono">${t.code}</div><span class="st">${t.status}</span>
+<p>${db?'Saved in the Dugasta support queue. Surya is notified by email.':'<span class="warn">Saved on this device (central queue not switched on yet). <b>Send the email below</b> so Surya receives it.</span>'}</p>
+<div class="row"><a href="${mail()}"><button class="b ${db?'':'p'}">${db?'Also email Surya (optional)':'Email ticket to Surya'}</button></a><a href="t.html?t=${t.code}"><button class="b">Open status page</button></a><button class="b" onclick="navigator.clipboard.writeText('${t.code}')">Copy ID</button></div></div>
+<div class="card" id="bk"><h2>Want 15 minutes with Surya?</h2><p class="mu">Only for P1/P2 or if it’s easier to show on screen.</p><div class="slots" id="sl">Loading…</div></div>`;slots();}
+let AV=null;fetch('./availability.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{AV=j;const busy=j.status==='busy';dot.className='dot '+(busy?'busy':'free');av.textContent=busy?'Surya in a meeting':(j.status_label||'Surya available');if(document.getElementById('sl'))slots();}).catch(()=>av.textContent='Calendar pending');
+function slots(){const el=document.getElementById('sl');if(!el||!AV)return;const now=Date.now();const fr=(AV.slots||[]).filter(s=>s.free&&new Date(s.start)>now).slice(0,12);
+if(!fr.length){el.textContent='No open slots right now — your ticket is in the queue.';return;}
+el.innerHTML=fr.map(s=>{const a=new Date(s.start);return `<button class="b slot" onclick="book('${s.start}')">${a.toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Dubai'})} Dubai</button>`}).join('');}
+function book(st){const a=new Date(st),b=new Date(a.getTime()+9e5),f=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(`[${S.t.code}] LSQ support · 15 min`)}&details=${encodeURIComponent(`Ticket ${S.t.code}\n${S.p.summary}`)}&dates=${f(a)}/${f(b)}&add=${SURYA}`,'_blank');
+document.getElementById('bk').innerHTML='<h2>Invite opened</h2><p class="mu">Save it in Google Calendar to lock the slot with Surya.</p>';}
+document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea,select'))return;const k=Object.keys(PB)[+e.key-1];if(k)pb(k);});
+home();
+</script></body></html>
