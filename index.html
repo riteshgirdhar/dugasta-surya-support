@@ -3,276 +3,265 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="theme-color" content="#02060f"/>
-<title>LSQ Assist · J.A.R.V.I.S.</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<meta name="theme-color" content="#0b0f14"/>
+<title>LSQ Assist</title>
 <style>
 :root{
-  --bg:#02060f; --panel:rgba(0,40,70,.45); --cyan:#00e5ff; --cyan2:#4df0ff;
-  --amber:#ffb000; --red:#ff3b56; --green:#00ffa3; --ink:#d7f7ff; --muted:#6fa8bc;
-  --glow:0 0 24px rgba(0,229,255,.35);
+  --bg:#0b0f14; --panel:#121821; --panel2:#182130; --line:rgba(255,255,255,.08);
+  --text:#eef3f8; --muted:#8b9bb0; --accent:#5b8cff; --accent2:#7aa2ff; --ok:#3dd68c; --warn:#ffb020;
+  --radius:18px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:var(--bg);color:var(--ink);overflow:hidden}
-body{font-family:"Share Tech Mono",ui-monospace,monospace}
-#scene{position:fixed;inset:0;z-index:0}
-.scan{position:fixed;inset:0;z-index:1;pointer-events:none;background:
-  linear-gradient(rgba(0,229,255,.03) 1px, transparent 1px) 0 0/100% 4px,
-  radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.55) 100%);
-  animation:scan 7s linear infinite; opacity:.7}
-@keyframes scan{to{background-position:0 40px,0 0}}
-.hud{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;pointer-events:none}
-.top{display:flex;justify-content:space-between;align-items:flex-start;padding:18px 18px 0;gap:12px}
-.brand{pointer-events:auto}
-.brand .eye{font-family:Orbitron,sans-serif;font-size:10px;letter-spacing:.28em;color:var(--cyan);text-shadow:var(--glow)}
-.brand h1{font-family:Orbitron,sans-serif;font-size:clamp(22px,4.5vw,34px);font-weight:700;letter-spacing:.08em;margin-top:6px;
-  background:linear-gradient(90deg,var(--cyan),#fff 55%,var(--cyan2));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 10px rgba(0,229,255,.4))}
-.brand .sub{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.12em}
-.status{pointer-events:auto;border:1px solid rgba(0,229,255,.45);background:rgba(0,20,40,.65);backdrop-filter:blur(10px);
-  padding:8px 12px;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
-  font-size:11px;letter-spacing:.08em;display:flex;align-items:center;gap:8px;box-shadow:var(--glow)}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--muted);box-shadow:0 0 8px currentColor}
-.dot.free{background:var(--green);color:var(--green)}
-.dot.busy{background:var(--red);color:var(--red)}
-.center{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 14px 14px;max-width:780px;width:100%;margin:0 auto}
-.frame{pointer-events:auto;border:1px solid rgba(0,229,255,.4);background:linear-gradient(180deg,rgba(0,50,80,.55),rgba(0,15,30,.75));
-  clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);
-  box-shadow:inset 0 0 40px rgba(0,229,255,.08), var(--glow); padding:14px 16px; margin-bottom:10px; position:relative}
-.frame::before,.frame::after{content:"";position:absolute;width:18px;height:18px;border:2px solid var(--cyan)}
-.frame::before{top:4px;left:4px;border-right:0;border-bottom:0}
-.frame::after{right:4px;bottom:4px;border-left:0;border-top:0}
-.who{font-family:Orbitron,sans-serif;font-size:10px;letter-spacing:.2em;color:var(--cyan);margin-bottom:8px}
-#speech{font-size:15px;line-height:1.45;color:var(--ink);min-height:3.2em;text-shadow:0 0 8px rgba(0,229,255,.25)}
-.chips{pointer-events:auto;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
-.chip,.btn{font:inherit;cursor:pointer;border:1px solid rgba(0,229,255,.5);background:rgba(0,30,55,.7);color:var(--cyan);
-  padding:10px 12px;letter-spacing:.04em;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
-  transition:background .15s,color .15s,box-shadow .15s}
-.chip:hover,.chip.on,.btn.primary{background:rgba(0,229,255,.18);color:#fff;box-shadow:0 0 16px rgba(0,229,255,.35)}
-.btn.amber{border-color:rgba(255,176,0,.55);color:var(--amber)}
-.btn.amber:hover{background:rgba(255,176,0,.15);color:#fff}
-.row{pointer-events:auto;display:flex;gap:8px}
-.row input{flex:1;background:rgba(0,20,40,.8);border:1px solid rgba(0,229,255,.35);color:var(--ink);padding:12px 14px;
-  font:inherit;outline:none;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
-.row input::placeholder{color:var(--muted)}
-.panel{pointer-events:auto;display:none;max-height:200px;overflow:auto;margin-bottom:10px;border:1px solid rgba(0,229,255,.3);
-  background:rgba(0,15,30,.85);padding:10px;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
-.panel.open{display:block}
-.slot{width:100%;text-align:left;margin:5px 0;padding:10px;background:rgba(0,40,70,.5);border:1px solid rgba(0,229,255,.25);
-  color:var(--ink);font:inherit;cursor:pointer}
-.slot:hover{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,229,255,.25)}
-.gate{position:fixed;inset:0;z-index:6;background:radial-gradient(circle at center,#041222 0%,#02060f 70%);
-  display:flex;align-items:center;justify-content:center}
-.gate.hidden{display:none}
-.gate-card{text-align:center;padding:36px 28px;border:1px solid rgba(0,229,255,.5);background:rgba(0,20,40,.7);
-  box-shadow:var(--glow);max-width:380px;margin:16px;clip-path:polygon(20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%,0 20px)}
-.gate-card .mark{font-size:40px;color:var(--cyan);text-shadow:var(--glow);font-family:Orbitron,sans-serif}
-.gate-card h2{font-family:Orbitron,sans-serif;letter-spacing:.18em;margin:14px 0 8px;font-size:22px}
-.gate-card p{color:var(--muted);margin-bottom:22px;font-size:13px;line-height:1.5}
-.hex{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.12;
-  background-image:radial-gradient(circle at 20% 20%, rgba(0,229,255,.4), transparent 25%),
-  radial-gradient(circle at 80% 70%, rgba(0,120,255,.25), transparent 30%)}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:radial-gradient(1200px 600px at 10% -10%, #152238 0%, transparent 55%),
+             radial-gradient(900px 500px at 100% 0%, #1a1430 0%, transparent 45%), var(--bg);
+  color:var(--text); -webkit-font-smoothing:antialiased;
+}
+.app{max-width:720px;margin:0 auto;height:100%;display:flex;flex-direction:column;padding:20px 16px 16px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.brand h1{font-size:22px;font-weight:650;letter-spacing:-.03em}
+.brand p{color:var(--muted);font-size:13px;margin-top:2px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid var(--line);
+  border-radius:999px;padding:7px 11px;font-size:12px;color:var(--muted)}
+.dot{width:7px;height:7px;border-radius:50%;background:#666}
+.dot.free{background:var(--ok);box-shadow:0 0 0 3px rgba(61,214,140,.18)}
+.dot.busy{background:#ff5d5d;box-shadow:0 0 0 3px rgba(255,93,93,.18)}
+.chat{
+  flex:1; min-height:0; overflow:auto; background:rgba(18,24,33,.72); border:1px solid var(--line);
+  border-radius:24px; padding:18px 16px; display:flex; flex-direction:column; gap:12px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+.msg{max-width:92%; display:flex; flex-direction:column; gap:6px}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end}
+.bubble{
+  padding:12px 14px; border-radius:16px; font-size:15px; line-height:1.45; letter-spacing:-.01em;
+  white-space:pre-wrap;
+}
+.msg.bot .bubble{background:var(--panel2); border:1px solid var(--line); border-bottom-left-radius:6px}
+.msg.user .bubble{background:linear-gradient(135deg,var(--accent),#4667d8); color:#fff; border-bottom-right-radius:6px}
+.choices{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.choice{
+  border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--text);
+  border-radius:999px; padding:9px 12px; font:inherit; font-size:13px; cursor:pointer;
+}
+.choice:hover{border-color:rgba(91,140,255,.55); background:rgba(91,140,255,.12)}
+.composer{display:flex;gap:8px;margin-top:12px}
+.composer input,.composer textarea{
+  flex:1; resize:none; min-height:48px; max-height:120px; border-radius:16px; border:1px solid var(--line);
+  background:rgba(18,24,33,.9); color:var(--text); padding:14px 14px; font:inherit; font-size:15px; outline:none;
+}
+.composer input:focus,.composer textarea:focus{border-color:rgba(91,140,255,.55)}
+.composer button, .primary{
+  border:0; border-radius:16px; padding:0 18px; min-height:48px; font:inherit; font-weight:600; font-size:14px;
+  background:linear-gradient(135deg,var(--accent),#4667d8); color:#fff; cursor:pointer;
+}
+.composer button:disabled{opacity:.4;cursor:not-allowed}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+@media(max-width:520px){.slots{grid-template-columns:1fr}}
+.slot{
+  text-align:left; border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--text);
+  border-radius:14px; padding:12px; font:inherit; font-size:13px; cursor:pointer;
+}
+.slot:hover{border-color:rgba(91,140,255,.55)}
+.note{color:var(--muted);font-size:12px;margin-top:4px}
+.summary{background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.14);border-radius:14px;padding:12px;font-size:13px;color:var(--muted)}
+.summary b{color:var(--text);font-weight:600}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.ghost{
+  border:1px solid var(--line); background:transparent; color:var(--text); border-radius:14px;
+  padding:12px 14px; font:inherit; font-size:13px; font-weight:600; cursor:pointer;
+}
 </style>
 </head>
 <body>
-<div id="scene"></div>
-<div class="hex"></div>
-<div class="scan"></div>
-<div class="gate" id="gate">
-  <div class="gate-card">
-    <div class="mark">◈</div>
-    <h2>LSQ ASSIST</h2>
-    <p>J.A.R.V.I.S.-class LeadSquared interface.<br/>Initialize to begin guidance.</p>
-    <button class="btn primary" id="startBtn" style="width:100%;padding:14px">INITIALIZE</button>
-  </div>
-</div>
-<div class="hud">
+<div class="app">
   <div class="top">
     <div class="brand">
-      <div class="eye">DUGASTA // SYSTEMS ONLINE</div>
-      <h1>LSQ ASSIST</h1>
-      <div class="sub">VOICE · GUIDE · CALENDAR LINK</div>
+      <h1>LSQ Assist</h1>
+      <p>Tell me what broke — I’ll gather the RCA for Surya</p>
     </div>
-    <div class="status"><span class="dot" id="dot"></span><span id="statusText">SCANNING…</span></div>
+    <div class="pill"><span class="dot" id="dot"></span><span id="statusText">Checking…</span></div>
   </div>
-  <div class="center">
-    <div class="frame">
-      <div class="who">ASSISTANT CHANNEL</div>
-      <div id="speech">Standing by for LeadSquared directives.</div>
-    </div>
-    <div class="chips" id="chips"></div>
-    <div class="panel" id="bookPanel"></div>
-    <div class="row">
-      <input id="msg" placeholder="Enter directive…" autocomplete="off"/>
-      <button class="btn primary" id="send">SEND</button>
-    </div>
-    <div class="row" style="margin-top:8px">
-      <button class="btn primary" id="liveChat" style="flex:1">OPEN LIVE PROTOCOL</button>
-      <button class="btn amber" id="bookBtn">BOOK SURYA</button>
-    </div>
+  <div class="chat" id="chat" aria-live="polite"></div>
+  <div class="composer">
+    <textarea id="input" rows="1" placeholder="Type your reply…" disabled></textarea>
+    <button id="send" disabled>Send</button>
   </div>
 </div>
-<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
-<script type="module">
-import * as THREE from 'three';
-const BOT='https://x.ai/bot/agent/108e478b-a7ed-5a22-bfc9-587e7ec9595b';
-const SURYA='surya@dugasta.co';
-let talking=false, avail=null;
+<script>
+const SURYA = 'surya@dugasta.co';
+const chat = document.getElementById('chat');
+const input = document.getElementById('input');
+const sendBtn = document.getElementById('send');
+const state = {
+  name:'', email:'', issueType:'', description:'', leadRef:'', tried:'', screenshot:'',
+  step:0, avail:null
+};
 
-const speechEl=document.getElementById('speech');
-const chipsEl=document.getElementById('chips');
-const bookPanel=document.getElementById('bookPanel');
-const dot=document.getElementById('dot');
-const statusText=document.getElementById('statusText');
-
-const INTENTS=[
-  {id:'owner',label:'OWNER LOOKUP'},
-  {id:'dup',label:'DUPLICATE LEAD'},
-  {id:'reassign',label:'REASSIGN / FAIZ'},
-  {id:'user',label:'CREATE USER'},
-  {id:'book',label:'BOOK CALL'},
-  {id:'other',label:'OTHER'},
+const ISSUE_TYPES = [
+  'Lead ownership / assignment',
+  'Duplicate lead',
+  'Lead stage or data wrong',
+  'Login / access',
+  'Call / WhatsApp / activity',
+  'Report or KPI',
+  'Other'
 ];
-const GUIDES={
-  owner:"Owner protocol ready. Paste the phone or email in live chat and I will retrieve owner, stage, and Prospect ID from LeadSquared.",
-  dup:"Duplicate scan ready. Share the number or a screenshot in live chat. I will map every matching lead and their owners.",
-  reassign:"Reassignment armed. Name the target owner — for example Faiz — and provide phones or a screenshot. Meeting Fixed leads stay locked.",
-  user:"User creation ready. Send name, email, and team in live chat. I will provision with Asia/Muscat timezone after verification.",
-  book:"Calendar uplink online. Select a free thirty-minute window. I will open Google Calendar with Surya invited.",
-  other:"Understood. Open live protocol with details or a screenshot, or book Surya if sales is blocked today.",
-};
 
-function speak(text){
-  speechEl.textContent=text; talking=true;
-  try{
-    speechSynthesis.cancel();
-    const u=new SpeechSynthesisUtterance(text);
-    u.rate=1.0; u.pitch=0.92;
-    const vs=speechSynthesis.getVoices();
-    const pref=vs.find(v=>/en/i.test(v.lang)&&/daniel|google uk|microsoft|male|david/i.test(v.name))||vs.find(v=>/^en/i.test(v.lang));
-    if(pref) u.voice=pref;
-    u.onend=()=>{talking=false};
-    speechSynthesis.speak(u);
-  }catch(e){talking=false}
+function scrollBottom(){ chat.scrollTop = chat.scrollHeight; }
+function addBot(text, extra){
+  const wrap = document.createElement('div'); wrap.className='msg bot';
+  const b = document.createElement('div'); b.className='bubble'; b.textContent=text; wrap.appendChild(b);
+  if(extra) wrap.appendChild(extra);
+  chat.appendChild(wrap); scrollBottom();
+}
+function addUser(text){
+  const wrap=document.createElement('div'); wrap.className='msg user';
+  const b=document.createElement('div'); b.className='bubble'; b.textContent=text; wrap.appendChild(b);
+  chat.appendChild(wrap); scrollBottom();
+}
+function setInput(on, placeholder){
+  input.disabled=!on; sendBtn.disabled=!on;
+  input.placeholder=placeholder||'Type your reply…';
+  if(on) setTimeout(()=>input.focus(),50);
+}
+function choiceRow(options, onPick){
+  const row=document.createElement('div'); row.className='choices';
+  options.forEach(o=>{
+    const btn=document.createElement('button'); btn.className='choice'; btn.type='button'; btn.textContent=o;
+    btn.onclick=()=>{ row.querySelectorAll('button').forEach(x=>x.disabled=true); onPick(o); };
+    row.appendChild(btn);
+  });
+  return row;
 }
 
-function renderChips(){
-  chipsEl.innerHTML='';
-  INTENTS.forEach(it=>{
-    const b=document.createElement('button');
-    b.className='chip'; b.textContent=it.label;
-    b.onclick=()=>runIntent(it.id);
-    chipsEl.appendChild(b);
+function askName(){
+  state.step=1;
+  addBot("Hi — I’m LSQ Assist. I’ll ask a few questions, then email a clean RCA to Surya. What’s your name?");
+  setInput(true, 'Your name');
+}
+function askEmail(){
+  state.step=2;
+  addBot(`Thanks, ${state.name}. What’s the best email to reach you on?`);
+  setInput(true, 'you@company.com');
+}
+function askType(){
+  state.step=3;
+  setInput(false);
+  addBot('What kind of LeadSquared issue is this?', choiceRow(ISSUE_TYPES, (v)=>{
+    state.issueType=v; addUser(v); askDescription();
+  }));
+}
+function askDescription(){
+  state.step=4;
+  addBot('In a few lines: what happened, and what should be happening instead?');
+  setInput(true, 'Describe the issue…');
+}
+function askLead(){
+  state.step=5;
+  addBot('Any lead phone, email, or Lead ID I should include? Type “skip” if none.');
+  setInput(true, 'Phone / email / Lead ID');
+}
+function askTried(){
+  state.step=6;
+  addBot('What have you already tried?');
+  setInput(true, 'What you tried…');
+}
+function askShot(){
+  state.step=7;
+  addBot('Optional: paste a screenshot link (Drive / image). Or type “skip”.');
+  setInput(true, 'https://… or skip');
+}
+function finishRCA(){
+  state.step=8;
+  setInput(false);
+  const box=document.createElement('div');
+  box.className='summary';
+  box.innerHTML = `<div><b>Name:</b> ${esc(state.name)}</div>
+    <div><b>Email:</b> ${esc(state.email)}</div>
+    <div><b>Type:</b> ${esc(state.issueType)}</div>
+    <div><b>Lead ref:</b> ${esc(state.leadRef||'—')}</div>
+    <div><b>Issue:</b> ${esc(state.description)}</div>
+    <div><b>Tried:</b> ${esc(state.tried)}</div>
+    <div><b>Screenshot:</b> ${esc(state.screenshot||'—')}</div>`;
+  const actions=document.createElement('div'); actions.className='actions';
+  const send=document.createElement('button'); send.className='primary'; send.textContent='Email RCA to Surya';
+  send.onclick=()=>{ sendMailto(); afterEmail(); };
+  actions.appendChild(send);
+  addBot('Here’s the RCA summary. I’ll open an email to Surya with this filled in — send it from your mail app.', (()=>{const w=document.createElement('div'); w.appendChild(box); w.appendChild(actions); return w;})());
+}
+function esc(s){ return String(s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+function sendMailto(){
+  const subject = `[LSQ Support] ${state.issueType} — ${state.name}`;
+  const body = `LSQ Assist RCA\n\nFrom: ${state.name} <${state.email}>\nIssue type: ${state.issueType}\nLead ref: ${state.leadRef||'n/a'}\n\nWhat happened:\n${state.description}\n\nAlready tried:\n${state.tried}\n\nScreenshot: ${state.screenshot||'n/a'}\n\n— sent via LSQ Assist`;
+  location.href = `mailto:${SURYA}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+function afterEmail(){
+  state.step=9;
+  addBot('RCA is ready for Surya’s inbox. Want a 15‑minute call with him? I’ll only show open times.',
+    choiceRow(['Yes, book 15 min', 'No, that’s enough'], (v)=>{
+      addUser(v);
+      if(v.startsWith('Yes')) showBooking();
+      else addBot('All set. You can close this page — Surya will get the RCA from your email.');
+    })
+  );
+}
+function showBooking(){
+  state.step=10;
+  const free = (state.avail?.slots||[]).filter(s=>s.free).slice(0,24);
+  if(!free.length){
+    addBot('No free windows on the calendar right now. The RCA email is still the best next step.');
+    return;
+  }
+  const wrap=document.createElement('div');
+  const note=document.createElement('div'); note.className='note'; note.textContent='15‑minute sessions · Mon–Sat 9am–6pm IST · grey times are already taken';
+  const grid=document.createElement('div'); grid.className='slots';
+  free.forEach(s=>{
+    const start=new Date(s.start);
+    const end=new Date(start.getTime()+15*60000);
+    const btn=document.createElement('button'); btn.type='button'; btn.className='slot';
+    btn.textContent = start.toLocaleString('en-IN',{weekday:'short', day:'numeric', month:'short', hour:'2-digit', minute:'2-digit', timeZone:'Asia/Kolkata'}) + ' · 15 min';
+    btn.onclick=()=>book(start,end,s.label||'');
+    grid.appendChild(btn);
   });
+  wrap.appendChild(note); wrap.appendChild(grid);
+  addBot('Pick a free slot — I’ll open Google Calendar with Surya invited.', wrap);
 }
-function runIntent(id){
-  [...chipsEl.children].forEach(c=>c.classList.toggle('on', c.textContent===INTENTS.find(i=>i.id===id)?.label));
-  speak(GUIDES[id]);
-  if(id==='book') openBook(); else bookPanel.classList.remove('open');
-}
-function openBook(){
-  bookPanel.classList.add('open');
-  let slots=(avail?.slots||avail?.availability||[]).filter(s=>s && s.free!==false && !s.busy).slice(0,16);
-  if(!slots.length && Array.isArray(avail)) slots=avail.filter(s=>s.free!==false).slice(0,16);
-  if(!slots.length){ bookPanel.innerHTML='<div style="color:#6fa8bc;font-size:12px">NO FREE WINDOWS IN UPLINK. RETRY OR USE LIVE PROTOCOL.</div>'; return; }
-  bookPanel.innerHTML='<div style="color:#00e5ff;font-size:11px;letter-spacing:.15em;margin-bottom:6px">FREE WINDOWS · IST</div>';
-  slots.forEach(s=>{
-    const start=new Date(s.start||s.begin||s.from);
-    const end=new Date(s.end||s.to||(start.getTime()+30*60000));
-    if(isNaN(start)) return;
-    const btn=document.createElement('button');
-    btn.className='slot';
-    btn.textContent=start.toLocaleString('en-IN',{weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'})+' IST';
-    btn.onclick=()=>bookSlot(start,end);
-    bookPanel.appendChild(btn);
-  });
-}
-function bookSlot(start,end){
+function book(start,end,label){
   const fmt=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
-  const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('LSQ Support call with Surya')}&details=${encodeURIComponent('Booked via LSQ Assist')}&dates=${fmt(start)}/${fmt(end)}&add=${encodeURIComponent(SURYA)}`;
+  const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('LSQ support — 15 min with Surya')}&details=${encodeURIComponent(`Booked via LSQ Assist\nReporter: ${state.name} <${state.email}>\nIssue: ${state.issueType}\n${state.description}`)}&dates=${fmt(start)}/${fmt(end)}&add=${encodeURIComponent(SURYA)}`;
   window.open(url,'_blank');
-  speak("Calendar template launched with Surya invited. Confirm the invite to lock the window.");
-}
-function handleText(t){
-  const s=t.toLowerCase();
-  if(/book|call|meet|slot|calendar/.test(s)) return runIntent('book');
-  if(/owner|who own|belong/.test(s)) return runIntent('owner');
-  if(/dup|already exist|exists/.test(s)) return runIntent('dup');
-  if(/reassign|faiz|move|send to|transfer/.test(s)) return runIntent('reassign');
-  if(/create user|new user|onboard/.test(s)) return runIntent('user');
-  speak("Directive noted. Open live protocol with details or a screenshot. I can also book Surya if required.");
+  addUser(label || start.toISOString());
+  addBot('Calendar opened with a 15‑minute invite for Surya. Save it to lock the slot. You’re done.');
 }
 
-document.getElementById('send').onclick=()=>{const i=document.getElementById('msg'); if(!i.value.trim())return; handleText(i.value.trim()); i.value='';};
-document.getElementById('msg').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('send').click();});
-document.getElementById('liveChat').onclick=()=>window.open(BOT,'_blank');
-document.getElementById('bookBtn').onclick=()=>runIntent('book');
-document.getElementById('startBtn').onclick=()=>{
-  document.getElementById('gate').classList.add('hidden');
-  speak("Good evening. LSQ Assist online. I can look up owners, clear duplicates, reassign leads, create users, or book Surya. How may I help you?");
-};
-renderChips();
-
-// Jarvis hologram figure
-const mount=document.getElementById('scene');
-const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-renderer.setSize(innerWidth,innerHeight);
-renderer.setClearColor(0x02060f,1);
-mount.appendChild(renderer.domElement);
-const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(40,innerWidth/innerHeight,0.1,100);
-camera.position.set(0,0.2,3.4);
-scene.add(new THREE.AmbientLight(0x003355,0.55));
-const key=new THREE.DirectionalLight(0x00e5ff,1.2); key.position.set(2,3,4); scene.add(key);
-const rim=new THREE.PointLight(0x00ffa3,0.8,8); rim.position.set(-2,1,2); scene.add(rim);
-
-const guide=new THREE.Group(); scene.add(guide);
-const cyan=new THREE.MeshStandardMaterial({color:0x00e5ff,emissive:0x0077aa,emissiveIntensity:0.55,metalness:0.7,roughness:0.25,transparent:true,opacity:0.85});
-const dark=new THREE.MeshStandardMaterial({color:0x031018,metalness:0.8,roughness:0.35,transparent:true,opacity:0.9});
-const coreMat=new THREE.MeshStandardMaterial({color:0x00ffa3,emissive:0x00ffa3,emissiveIntensity:0.9,metalness:0.5,roughness:0.2});
-
-const torso=new THREE.Mesh(new THREE.CapsuleGeometry(0.42,0.75,10,20),dark); torso.position.y=-0.1; guide.add(torso);
-const chest=new THREE.Mesh(new THREE.CircleGeometry(0.16,32),coreMat); chest.position.set(0,0.05,0.43); guide.add(chest);
-const head=new THREE.Mesh(new THREE.SphereGeometry(0.34,32,32),dark); head.position.y=0.9; guide.add(head);
-const helm=new THREE.Mesh(new THREE.SphereGeometry(0.355,32,16,0,Math.PI*2,0,Math.PI*0.45),cyan); helm.position.y=0.98; guide.add(helm);
-const visor=new THREE.Mesh(new THREE.BoxGeometry(0.4,0.1,0.06),cyan); visor.position.set(0,0.9,0.3); guide.add(visor);
-const mouth=new THREE.Mesh(new THREE.BoxGeometry(0.16,0.03,0.04),cyan); mouth.position.set(0,0.74,0.31); guide.add(mouth);
-
-const ring1=new THREE.Mesh(new THREE.TorusGeometry(0.95,0.012,12,80),cyan); ring1.rotation.x=Math.PI/2; ring1.position.y=-0.95; guide.add(ring1);
-const ring2=new THREE.Mesh(new THREE.TorusGeometry(1.2,0.008,12,80),new THREE.MeshStandardMaterial({color:0x00e5ff,transparent:true,opacity:0.35,emissive:0x00e5ff,emissiveIntensity:0.3}));
-ring2.rotation.x=Math.PI/2.5; ring2.position.y=-0.7; guide.add(ring2);
-const arc=new THREE.Mesh(new THREE.TorusGeometry(1.5,0.01,8,100,Math.PI*1.2),cyan); arc.rotation.y=0.4; guide.add(arc);
-
-for(let i=0;i<18;i++){
-  const p=new THREE.Mesh(new THREE.SphereGeometry(0.015,8,8),coreMat);
-  const a=(i/18)*Math.PI*2; p.position.set(Math.cos(a)*1.05, -0.95+Math.sin(i)*0.02, Math.sin(a)*1.05);
-  guide.add(p);
+function onSend(){
+  const text=input.value.trim(); if(!text||input.disabled) return;
+  input.value=''; addUser(text);
+  if(state.step===1){ state.name=text; askEmail(); return; }
+  if(state.step===2){
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)){ addBot('That doesn’t look like an email. Try again?'); return; }
+    state.email=text; askType(); return;
+  }
+  if(state.step===4){ state.description=text; askLead(); return; }
+  if(state.step===5){ state.leadRef=/^skip$/i.test(text)?'':text; askTried(); return; }
+  if(state.step===6){ state.tried=text; askShot(); return; }
+  if(state.step===7){ state.screenshot=/^skip$/i.test(text)?'':text; finishRCA(); return; }
 }
-
-addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
-let t0=performance.now();
-function animate(now){
-  requestAnimationFrame(animate);
-  const t=(now-t0)/1000;
-  guide.position.y=Math.sin(t*1.4)*0.05;
-  guide.rotation.y=Math.sin(t*0.55)*0.2;
-  ring1.rotation.z=t*0.6; ring2.rotation.z=-t*0.35; arc.rotation.z=t*0.25;
-  coreMat.emissiveIntensity=talking?1.4+Math.sin(t*22)*0.5:0.7;
-  cyan.emissiveIntensity=talking?0.9:0.45;
-  mouth.scale.y=talking?1+Math.abs(Math.sin(t*20))*2.2:1;
-  mouth.scale.x=talking?1.2:1;
-  renderer.render(scene,camera);
-}
-requestAnimationFrame(animate);
+sendBtn.onclick=onSend;
+input.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); onSend(); }});
 
 fetch('./availability.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{
-  avail=j;
-  const busy=j.busy_now||j.status==='busy';
-  if(busy){dot.className='dot busy'; statusText.textContent='SURYA · IN SESSION';}
-  else{dot.className='dot free'; statusText.textContent='SURYA · AVAILABLE';}
-  if(!avail.slots&&Array.isArray(avail.availability)) avail.slots=avail.availability;
-}).catch(()=>{statusText.textContent='UPLINK PENDING';});
+  state.avail=j;
+  const busy=j.status==='busy'||j.busy_now;
+  document.getElementById('dot').className='dot '+(busy?'busy':'free');
+  document.getElementById('statusText').textContent = busy ? 'Surya in a meeting' : (j.status_label||'Surya available');
+}).catch(()=>{ document.getElementById('statusText').textContent='Calendar pending'; });
+
+askName();
 </script>
 </body>
 </html>
