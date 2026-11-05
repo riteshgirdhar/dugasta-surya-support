@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Surya Support — LeadSquared</title>
+<style>
+:root{--ink:#f8fafc;--muted:#94a3b8;--accent:#38bdf8;--line:#1f2937;--ok:#34d399;--busy:#f87171}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:linear-gradient(180deg,#0b1224,#0f172a 40%);color:var(--ink);min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 64px}
+.badge{display:inline-block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);border:1px solid #0ea5e9;border-radius:999px;padding:4px 10px;margin-bottom:12px}
+h1{font-size:28px;line-height:1.2;margin:0 0 8px}.lead{color:var(--muted);margin:0 0 18px}
+.status{display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:rgba(17,24,39,.92);margin-bottom:16px;font-weight:600}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot.free{background:var(--ok);box-shadow:0 0 0 4px rgba(52,211,153,.15)}
+.dot.busy{background:var(--busy);box-shadow:0 0 0 4px rgba(248,113,113,.15)}
+.card{background:rgba(17,24,39,.92);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+h2{font-size:18px;margin:0 0 12px}
+label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
+input,select,textarea{width:100%;background:#0b1220;border:1px solid #334155;border-radius:10px;color:var(--ink);padding:12px;font:inherit}
+textarea{min-height:90px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+button.submit{margin-top:16px;width:100%;border:0;border-radius:12px;padding:14px 16px;font-weight:600;font-size:15px;cursor:pointer;background:var(--accent);color:#082f49}
+button.submit:disabled{opacity:.45;cursor:not-allowed}
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tab{flex:1;min-width:140px;background:#0b1220;border:1px solid #334155;color:var(--ink);border-radius:12px;padding:12px;cursor:pointer;font:inherit}
+.tab.active{border-color:var(--accent);color:var(--accent)}
+.hidden{display:none}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:8px;max-height:320px;overflow:auto}
+.slot{border:1px solid #334155;background:#0b1220;color:var(--ink);border-radius:10px;padding:10px;cursor:pointer;font:inherit;text-align:left}
+.slot.free:hover,.slot.selected{border-color:var(--accent);color:var(--accent)}
+.slot.busy{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.meta{font-size:12px;color:var(--muted);margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="badge">Dugasta · Dubai team → Surya</div>
+  <h1>LeadSquared support</h1>
+  <p class="lead">Report an LSQ issue with screenshots, or book a 30-minute call. Only free slots can be booked so two people never take the same time.</p>
+  <div class="status" id="statusBar"><span class="dot free" id="statusDot"></span><span id="statusText">Checking calendar…</span></div>
+  <div class="tabs">
+    <button class="tab active" type="button" id="tabIssue">Report an issue</button>
+    <button class="tab" type="button" id="tabBook">Book a call</button>
+  </div>
+
+  <div class="card" id="panelIssue">
+    <h2>Report an issue</h2>
+    <form action="https://formsubmit.co/surya@dugasta.co" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="[LSQ Support] New ticket from Dubai team"/>
+      <input type="hidden" name="_template" value="table"/>
+      <input type="hidden" name="_captcha" value="false"/>
+      <input type="hidden" name="_next" value="https://riteshgirdhar.github.io/dugasta-surya-support/thanks.html"/>
+      <div class="row">
+        <div><label>Your name *</label><input name="name" required placeholder="Full name"/></div>
+        <div><label>Your email *</label><input name="email" type="email" required placeholder="you@dugasta.co"/></div>
+      </div>
+      <label>Issue type *</label>
+      <select name="issue_type" required>
+        <option value="">Select…</option>
+        <option>Lead ownership / assignment</option>
+        <option>Lead stage or data wrong</option>
+        <option>LeadSquared login or access</option>
+        <option>Call / WhatsApp / activity issue</option>
+        <option>Report or KPI help</option>
+        <option>Other</option>
+      </select>
+      <div class="row">
+        <div><label>Lead ID / Prospect ID</label><input name="lead_id" placeholder="e.g. L440249"/></div>
+        <div><label>Lead name or phone</label><input name="lead_ref" placeholder="Name or +971…"/></div>
+      </div>
+      <label>What is the issue *</label>
+      <textarea name="issue" required placeholder="What went wrong in LeadSquared?"></textarea>
+      <label>What you need from Surya *</label>
+      <textarea name="need" required placeholder="e.g. move lead to Sunil, fix stage, unlock login"></textarea>
+      <label>Screenshot (optional)</label>
+      <input name="attachment" type="file" accept="image/*,.pdf"/>
+      <label>Or paste a Drive / image link</label>
+      <input name="screenshot_link" placeholder="https://…"/>
+      <button class="submit" type="submit">Send to Surya</button>
+      <p class="note">Goes straight to surya@dugasta.co.</p>
+    </form>
+  </div>
+
+  <div class="card hidden" id="panelBook">
+    <h2>Book a support call</h2>
+    <p class="note" style="margin-top:0">Mon–Sat, 9:00am–6:00pm IST · 30 minutes · Google Meet. Grey slots are already taken.</p>
+    <div class="slots" id="slotList"></div>
+    <p class="meta" id="slotMeta"></p>
+    <form id="bookForm" action="https://formsubmit.co/surya@dugasta.co" method="POST">
+      <input type="hidden" name="_subject" value="[LSQ Call] Booking request — lock this slot"/>
+      <input type="hidden" name="_template" value="table"/>
+      <input type="hidden" name="_captcha" value="false"/>
+      <input type="hidden" name="_next" value="https://riteshgirdhar.github.io/dugasta-surya-support/thanks.html"/>
+      <input type="hidden" name="slot_start" id="slotStart" required/>
+      <input type="hidden" name="slot_end" id="slotEnd" required/>
+      <input type="hidden" name="slot_label" id="slotLabel"/>
+      <div class="row">
+        <div><label>Your name *</label><input name="name" required/></div>
+        <div><label>Your email *</label><input name="email" type="email" required/></div>
+      </div>
+      <label>Topic *</label>
+      <textarea name="topic" required placeholder="What should we cover on the call?"></textarea>
+      <button class="submit" id="bookBtn" type="submit" disabled>Select a free slot first</button>
+      <p class="note">Submitting locks that time on Surya’s Google Calendar so nobody else can take it.</p>
+    </form>
+  </div>
+</div>
+<script>
+const tabIssue=document.getElementById('tabIssue');
+const tabBook=document.getElementById('tabBook');
+const panelIssue=document.getElementById('panelIssue');
+const panelBook=document.getElementById('panelBook');
+tabIssue.onclick=()=>{tabIssue.classList.add('active');tabBook.classList.remove('active');panelIssue.classList.remove('hidden');panelBook.classList.add('hidden')};
+tabBook.onclick=()=>{tabBook.classList.add('active');tabIssue.classList.remove('active');panelBook.classList.remove('hidden');panelIssue.classList.add('hidden')};
+
+let selected=null;
+function render(data){
+  const busy=data.status==='busy';
+  document.getElementById('statusDot').className='dot '+(busy?'busy':'free');
+  document.getElementById('statusText').textContent=(busy?'Busy now — in a meeting':'Free now')+' · updated '+new Date(data.updated_at).toLocaleString();
+  const list=document.getElementById('slotList');
+  list.innerHTML='';
+  const freeCount=data.slots.filter(s=>s.free).length;
+  document.getElementById('slotMeta').textContent=freeCount+' free slots in the next week ('+data.window+')';
+  data.slots.forEach(s=>{
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='slot '+(s.free?'free':'busy');
+    b.textContent=s.label+(s.free?'':' · taken');
+    b.disabled=!s.free;
+    if(s.free){
+      b.onclick=()=>{
+        selected=s;
+        [...list.children].forEach(x=>x.classList.remove('selected'));
+        b.classList.add('selected');
+        document.getElementById('slotStart').value=s.start;
+        document.getElementById('slotEnd').value=s.end;
+        document.getElementById('slotLabel').value=s.label;
+        const btn=document.getElementById('bookBtn');
+        btn.disabled=false;
+        btn.textContent='Book '+s.label;
+      };
+    }
+    list.appendChild(b);
+  });
+}
+fetch('./availability.json?ts='+Date.now()).then(r=>r.json()).then(render).catch(()=>{
+  document.getElementById('statusText').textContent='Could not load calendar status';
+});
+document.getElementById('bookForm').addEventListener('submit',(e)=>{
+  if(!document.getElementById('slotStart').value){e.preventDefault();alert('Pick a free slot first');}
+});
+</script>
+</body>
+</html>
