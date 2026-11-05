@@ -3,272 +3,276 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="theme-color" content="#f5f5f7"/>
-<title>LSQ Assist</title>
+<meta name="theme-color" content="#02060f"/>
+<title>LSQ Assist · J.A.R.V.I.S.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#f5f5f7;--card:#fff;--ink:#1d1d1f;--muted:#6e6e73;--line:rgba(0,0,0,.08);--blue:#0071e3;--green:#34c759;--red:#ff3b30}
+:root{
+  --bg:#02060f; --panel:rgba(0,40,70,.45); --cyan:#00e5ff; --cyan2:#4df0ff;
+  --amber:#ffb000; --red:#ff3b56; --green:#00ffa3; --ink:#d7f7ff; --muted:#6fa8bc;
+  --glow:0 0 24px rgba(0,229,255,.35);
+}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);overflow:hidden}
+html,body{height:100%;background:var(--bg);color:var(--ink);overflow:hidden}
+body{font-family:"Share Tech Mono",ui-monospace,monospace}
 #scene{position:fixed;inset:0;z-index:0}
-.ui{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;pointer-events:none}
-.top{padding:20px 20px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.scan{position:fixed;inset:0;z-index:1;pointer-events:none;background:
+  linear-gradient(rgba(0,229,255,.03) 1px, transparent 1px) 0 0/100% 4px,
+  radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.55) 100%);
+  animation:scan 7s linear infinite; opacity:.7}
+@keyframes scan{to{background-position:0 40px,0 0}}
+.hud{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;pointer-events:none}
+.top{display:flex;justify-content:space-between;align-items:flex-start;padding:18px 18px 0;gap:12px}
 .brand{pointer-events:auto}
-.brand .eye{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.brand h1{font-size:clamp(28px,5vw,40px);letter-spacing:-.04em;line-height:1}
-.status{pointer-events:auto;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:500}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
-.dot.free{background:var(--green);box-shadow:0 0 0 3px rgba(52,199,89,.2)}
-.dot.busy{background:var(--red);box-shadow:0 0 0 3px rgba(255,59,48,.2)}
-.center{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 16px 16px;max-width:720px;width:100%;margin:0 auto}
-.bubble{pointer-events:auto;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:22px;padding:16px 18px;box-shadow:0 10px 40px rgba(0,0,0,.06);margin-bottom:12px;min-height:72px}
-.bubble .who{font-size:12px;font-weight:600;color:var(--blue);margin-bottom:6px}
-.bubble p{font-size:16px;line-height:1.4;letter-spacing:-.01em}
-.chips{pointer-events:auto;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-.chip,.btn{border:0;cursor:pointer;font:inherit}
-.chip{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:999px;padding:10px 14px;font-size:13px;font-weight:500;color:var(--ink)}
-.chip:hover,.chip.on{background:var(--ink);color:#fff}
+.brand .eye{font-family:Orbitron,sans-serif;font-size:10px;letter-spacing:.28em;color:var(--cyan);text-shadow:var(--glow)}
+.brand h1{font-family:Orbitron,sans-serif;font-size:clamp(22px,4.5vw,34px);font-weight:700;letter-spacing:.08em;margin-top:6px;
+  background:linear-gradient(90deg,var(--cyan),#fff 55%,var(--cyan2));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 10px rgba(0,229,255,.4))}
+.brand .sub{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.12em}
+.status{pointer-events:auto;border:1px solid rgba(0,229,255,.45);background:rgba(0,20,40,.65);backdrop-filter:blur(10px);
+  padding:8px 12px;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  font-size:11px;letter-spacing:.08em;display:flex;align-items:center;gap:8px;box-shadow:var(--glow)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted);box-shadow:0 0 8px currentColor}
+.dot.free{background:var(--green);color:var(--green)}
+.dot.busy{background:var(--red);color:var(--red)}
+.center{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 14px 14px;max-width:780px;width:100%;margin:0 auto}
+.frame{pointer-events:auto;border:1px solid rgba(0,229,255,.4);background:linear-gradient(180deg,rgba(0,50,80,.55),rgba(0,15,30,.75));
+  clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);
+  box-shadow:inset 0 0 40px rgba(0,229,255,.08), var(--glow); padding:14px 16px; margin-bottom:10px; position:relative}
+.frame::before,.frame::after{content:"";position:absolute;width:18px;height:18px;border:2px solid var(--cyan)}
+.frame::before{top:4px;left:4px;border-right:0;border-bottom:0}
+.frame::after{right:4px;bottom:4px;border-left:0;border-top:0}
+.who{font-family:Orbitron,sans-serif;font-size:10px;letter-spacing:.2em;color:var(--cyan);margin-bottom:8px}
+#speech{font-size:15px;line-height:1.45;color:var(--ink);min-height:3.2em;text-shadow:0 0 8px rgba(0,229,255,.25)}
+.chips{pointer-events:auto;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chip,.btn{font:inherit;cursor:pointer;border:1px solid rgba(0,229,255,.5);background:rgba(0,30,55,.7);color:var(--cyan);
+  padding:10px 12px;letter-spacing:.04em;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  transition:background .15s,color .15s,box-shadow .15s}
+.chip:hover,.chip.on,.btn.primary{background:rgba(0,229,255,.18);color:#fff;box-shadow:0 0 16px rgba(0,229,255,.35)}
+.btn.amber{border-color:rgba(255,176,0,.55);color:var(--amber)}
+.btn.amber:hover{background:rgba(255,176,0,.15);color:#fff}
 .row{pointer-events:auto;display:flex;gap:8px}
-.row input{flex:1;border:1px solid var(--line);border-radius:16px;padding:14px 16px;font:inherit;font-size:15px;background:rgba(255,255,255,.95);outline:none}
-.btn{border-radius:16px;padding:14px 16px;font-weight:600;font-size:14px}
-.btn.primary{background:var(--blue);color:#fff}
-.btn.dark{background:var(--ink);color:#fff}
-.btn.ghost{background:rgba(255,255,255,.9);border:1px solid var(--line)}
-.panel{pointer-events:auto;display:none;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:20px;padding:14px;margin-bottom:12px;max-height:220px;overflow:auto}
+.row input{flex:1;background:rgba(0,20,40,.8);border:1px solid rgba(0,229,255,.35);color:var(--ink);padding:12px 14px;
+  font:inherit;outline:none;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+.row input::placeholder{color:var(--muted)}
+.panel{pointer-events:auto;display:none;max-height:200px;overflow:auto;margin-bottom:10px;border:1px solid rgba(0,229,255,.3);
+  background:rgba(0,15,30,.85);padding:10px;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
 .panel.open{display:block}
-.slot{width:100%;text-align:left;background:#f5f5f7;border:0;border-radius:12px;padding:12px;margin:6px 0;font:inherit;cursor:pointer}
-.slot:hover{background:#e8e8ed}
-.gate{position:fixed;inset:0;z-index:5;background:rgba(245,245,247,.92);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center}
+.slot{width:100%;text-align:left;margin:5px 0;padding:10px;background:rgba(0,40,70,.5);border:1px solid rgba(0,229,255,.25);
+  color:var(--ink);font:inherit;cursor:pointer}
+.slot:hover{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,229,255,.25)}
+.gate{position:fixed;inset:0;z-index:6;background:radial-gradient(circle at center,#041222 0%,#02060f 70%);
+  display:flex;align-items:center;justify-content:center}
 .gate.hidden{display:none}
-.gate-card{background:#fff;border-radius:28px;padding:36px 28px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.08);max-width:360px;margin:20px}
-.gate-card h2{font-size:28px;letter-spacing:-.03em;margin:12px 0 8px}
-.gate-card p{color:var(--muted);margin-bottom:22px}
+.gate-card{text-align:center;padding:36px 28px;border:1px solid rgba(0,229,255,.5);background:rgba(0,20,40,.7);
+  box-shadow:var(--glow);max-width:380px;margin:16px;clip-path:polygon(20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%,0 20px)}
+.gate-card .mark{font-size:40px;color:var(--cyan);text-shadow:var(--glow);font-family:Orbitron,sans-serif}
+.gate-card h2{font-family:Orbitron,sans-serif;letter-spacing:.18em;margin:14px 0 8px;font-size:22px}
+.gate-card p{color:var(--muted);margin-bottom:22px;font-size:13px;line-height:1.5}
+.hex{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.12;
+  background-image:radial-gradient(circle at 20% 20%, rgba(0,229,255,.4), transparent 25%),
+  radial-gradient(circle at 80% 70%, rgba(0,120,255,.25), transparent 30%)}
 </style>
 </head>
 <body>
 <div id="scene"></div>
+<div class="hex"></div>
+<div class="scan"></div>
 <div class="gate" id="gate">
   <div class="gate-card">
-    <div style="font-size:42px">◇</div>
-    <h2>LSQ Assist</h2>
-    <p>Your LeadSquared guide. Tap to start — I’ll talk you through it.</p>
-    <button class="btn primary" id="startBtn" style="width:100%">Start</button>
+    <div class="mark">◈</div>
+    <h2>LSQ ASSIST</h2>
+    <p>J.A.R.V.I.S.-class LeadSquared interface.<br/>Initialize to begin guidance.</p>
+    <button class="btn primary" id="startBtn" style="width:100%;padding:14px">INITIALIZE</button>
   </div>
 </div>
-<div class="ui">
+<div class="hud">
   <div class="top">
     <div class="brand">
-      <div class="eye">Dugasta · Dubai</div>
-      <h1>LSQ Assist</h1>
+      <div class="eye">DUGASTA // SYSTEMS ONLINE</div>
+      <h1>LSQ ASSIST</h1>
+      <div class="sub">VOICE · GUIDE · CALENDAR LINK</div>
     </div>
-    <div class="status"><span class="dot" id="dot"></span><span id="statusText">Checking…</span></div>
+    <div class="status"><span class="dot" id="dot"></span><span id="statusText">SCANNING…</span></div>
   </div>
   <div class="center">
-    <div class="bubble"><div class="who">LSQ Assist</div><p id="speech">Hi — I’m here to help with LeadSquared.</p></div>
+    <div class="frame">
+      <div class="who">ASSISTANT CHANNEL</div>
+      <div id="speech">Standing by for LeadSquared directives.</div>
+    </div>
     <div class="chips" id="chips"></div>
     <div class="panel" id="bookPanel"></div>
     <div class="row">
-      <input id="msg" placeholder="Type what’s wrong…" autocomplete="off"/>
-      <button class="btn primary" id="send">Send</button>
+      <input id="msg" placeholder="Enter directive…" autocomplete="off"/>
+      <button class="btn primary" id="send">SEND</button>
     </div>
     <div class="row" style="margin-top:8px">
-      <button class="btn dark" id="liveChat" style="flex:1">Open live chat</button>
-      <button class="btn ghost" id="bookBtn">Book Surya</button>
+      <button class="btn primary" id="liveChat" style="flex:1">OPEN LIVE PROTOCOL</button>
+      <button class="btn amber" id="bookBtn">BOOK SURYA</button>
     </div>
   </div>
 </div>
-<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
 <script type="module">
 import * as THREE from 'three';
+const BOT='https://x.ai/bot/agent/108e478b-a7ed-5a22-bfc9-587e7ec9595b';
+const SURYA='surya@dugasta.co';
+let talking=false, avail=null;
 
-const BOT = 'https://x.ai/bot/agent/108e478b-a7ed-5a22-bfc9-587e7ec9595b';
-const SURYA = 'surya@dugasta.co';
-let talking = false, avail = null, voiceReady = false;
+const speechEl=document.getElementById('speech');
+const chipsEl=document.getElementById('chips');
+const bookPanel=document.getElementById('bookPanel');
+const dot=document.getElementById('dot');
+const statusText=document.getElementById('statusText');
 
-const speechEl = document.getElementById('speech');
-const chipsEl = document.getElementById('chips');
-const bookPanel = document.getElementById('bookPanel');
-const dot = document.getElementById('dot');
-const statusText = document.getElementById('statusText');
-
-const INTENTS = [
-  {id:'owner', label:'Who owns a lead?'},
-  {id:'dup', label:'Duplicate lead'},
-  {id:'reassign', label:'Reassign / send to Faiz'},
-  {id:'user', label:'Create LSQ user'},
-  {id:'book', label:'Book a call'},
-  {id:'other', label:'Something else'},
+const INTENTS=[
+  {id:'owner',label:'OWNER LOOKUP'},
+  {id:'dup',label:'DUPLICATE LEAD'},
+  {id:'reassign',label:'REASSIGN / FAIZ'},
+  {id:'user',label:'CREATE USER'},
+  {id:'book',label:'BOOK CALL'},
+  {id:'other',label:'OTHER'},
 ];
-
-const GUIDES = {
-  owner: "Paste the phone or email in live chat and I’ll look up the owner and stage in LeadSquared right away.",
-  dup: "Share the number or screenshot in live chat. I’ll find every matching lead and owners, then help fix the duplicate.",
-  reassign: "Tell me who should own it — for example Faiz — and paste the phones or screenshot. I’ll move them, and I never touch Meeting Fixed leads.",
-  user: "In live chat, send the name, email, and team. I’ll create the LeadSquared user with the right timezone after a quick check.",
-  book: "Here are Surya’s free slots. Pick one and it opens Google Calendar with him invited.",
-  other: "Describe the issue in live chat, or book a call if it’s blocking sales today. I’ll guide you either way.",
+const GUIDES={
+  owner:"Owner protocol ready. Paste the phone or email in live chat and I will retrieve owner, stage, and Prospect ID from LeadSquared.",
+  dup:"Duplicate scan ready. Share the number or a screenshot in live chat. I will map every matching lead and their owners.",
+  reassign:"Reassignment armed. Name the target owner — for example Faiz — and provide phones or a screenshot. Meeting Fixed leads stay locked.",
+  user:"User creation ready. Send name, email, and team in live chat. I will provision with Asia/Muscat timezone after verification.",
+  book:"Calendar uplink online. Select a free thirty-minute window. I will open Google Calendar with Surya invited.",
+  other:"Understood. Open live protocol with details or a screenshot, or book Surya if sales is blocked today.",
 };
 
 function speak(text){
-  speechEl.textContent = text;
-  talking = true;
+  speechEl.textContent=text; talking=true;
   try{
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = 1.02; u.pitch = 1.05;
-    const vs = speechSynthesis.getVoices();
-    const pref = vs.find(v=>/en(-|_)?(US|GB|IN)?/i.test(v.lang) && /female|samantha|google|zira|jenny/i.test(v.name)) || vs.find(v=>/^en/i.test(v.lang));
-    if(pref) u.voice = pref;
-    u.onend = ()=>{ talking=false };
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.rate=1.0; u.pitch=0.92;
+    const vs=speechSynthesis.getVoices();
+    const pref=vs.find(v=>/en/i.test(v.lang)&&/daniel|google uk|microsoft|male|david/i.test(v.name))||vs.find(v=>/^en/i.test(v.lang));
+    if(pref) u.voice=pref;
+    u.onend=()=>{talking=false};
     speechSynthesis.speak(u);
-  }catch(e){ talking=false }
+  }catch(e){talking=false}
 }
 
 function renderChips(){
-  chipsEl.innerHTML = '';
+  chipsEl.innerHTML='';
   INTENTS.forEach(it=>{
-    const b = document.createElement('button');
-    b.className = 'chip'; b.textContent = it.label;
-    b.onclick = ()=> runIntent(it.id);
+    const b=document.createElement('button');
+    b.className='chip'; b.textContent=it.label;
+    b.onclick=()=>runIntent(it.id);
     chipsEl.appendChild(b);
   });
 }
-
 function runIntent(id){
   [...chipsEl.children].forEach(c=>c.classList.toggle('on', c.textContent===INTENTS.find(i=>i.id===id)?.label));
-  const g = GUIDES[id];
-  speak(g);
-  if(id==='book'){ openBook(); }
-  else { bookPanel.classList.remove('open'); }
+  speak(GUIDES[id]);
+  if(id==='book') openBook(); else bookPanel.classList.remove('open');
 }
-
 function openBook(){
   bookPanel.classList.add('open');
-  const slots = (avail?.slots||[]).filter(s=>s.free!==false && !s.busy).slice(0,18);
-  if(!slots.length){
-    bookPanel.innerHTML = '<p style="color:#6e6e73;font-size:14px">No free slots loaded. Use live chat or try again shortly.</p>';
-    return;
-  }
-  bookPanel.innerHTML = '<div style="font-size:13px;font-weight:600;margin-bottom:6px">Free 30‑min slots (IST)</div>';
+  let slots=(avail?.slots||avail?.availability||[]).filter(s=>s && s.free!==false && !s.busy).slice(0,16);
+  if(!slots.length && Array.isArray(avail)) slots=avail.filter(s=>s.free!==false).slice(0,16);
+  if(!slots.length){ bookPanel.innerHTML='<div style="color:#6fa8bc;font-size:12px">NO FREE WINDOWS IN UPLINK. RETRY OR USE LIVE PROTOCOL.</div>'; return; }
+  bookPanel.innerHTML='<div style="color:#00e5ff;font-size:11px;letter-spacing:.15em;margin-bottom:6px">FREE WINDOWS · IST</div>';
   slots.forEach(s=>{
-    const start = new Date(s.start || s.begin || s.from);
-    const end = new Date(s.end || s.to || (start.getTime()+30*60000));
-    const btn = document.createElement('button');
-    btn.className = 'slot';
-    btn.textContent = start.toLocaleString('en-IN',{weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'}) + ' IST';
-    btn.onclick = ()=> bookSlot(start,end);
+    const start=new Date(s.start||s.begin||s.from);
+    const end=new Date(s.end||s.to||(start.getTime()+30*60000));
+    if(isNaN(start)) return;
+    const btn=document.createElement('button');
+    btn.className='slot';
+    btn.textContent=start.toLocaleString('en-IN',{weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'})+' IST';
+    btn.onclick=()=>bookSlot(start,end);
     bookPanel.appendChild(btn);
   });
 }
-
 function bookSlot(start,end){
-  const fmt = d=> d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
-  const title = encodeURIComponent('LSQ Support call with Surya');
-  const details = encodeURIComponent('Booked via LSQ Assist');
-  const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${fmt(start)}/${fmt(end)}&add=${encodeURIComponent(SURYA)}`;
+  const fmt=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('LSQ Support call with Surya')}&details=${encodeURIComponent('Booked via LSQ Assist')}&dates=${fmt(start)}/${fmt(end)}&add=${encodeURIComponent(SURYA)}`;
   window.open(url,'_blank');
-  speak("Great — I opened Google Calendar with Surya invited for that slot. Save the invite to lock it.");
+  speak("Calendar template launched with Surya invited. Confirm the invite to lock the window.");
 }
-
 function handleText(t){
-  const s = t.toLowerCase();
+  const s=t.toLowerCase();
   if(/book|call|meet|slot|calendar/.test(s)) return runIntent('book');
   if(/owner|who own|belong/.test(s)) return runIntent('owner');
   if(/dup|already exist|exists/.test(s)) return runIntent('dup');
   if(/reassign|faiz|move|send to|transfer/.test(s)) return runIntent('reassign');
   if(/create user|new user|onboard/.test(s)) return runIntent('user');
-  speak("Got it. Open live chat and paste the details or a screenshot — I’ll take it from there. Or book Surya if you need him on a call.");
+  speak("Directive noted. Open live protocol with details or a screenshot. I can also book Surya if required.");
 }
 
-document.getElementById('send').onclick = ()=>{
-  const i = document.getElementById('msg');
-  if(!i.value.trim()) return;
-  handleText(i.value.trim()); i.value='';
-};
-document.getElementById('msg').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('send').click(); });
-document.getElementById('liveChat').onclick = ()=> window.open(BOT,'_blank');
-document.getElementById('bookBtn').onclick = ()=> runIntent('book');
-
-document.getElementById('startBtn').onclick = ()=>{
+document.getElementById('send').onclick=()=>{const i=document.getElementById('msg'); if(!i.value.trim())return; handleText(i.value.trim()); i.value='';};
+document.getElementById('msg').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('send').click();});
+document.getElementById('liveChat').onclick=()=>window.open(BOT,'_blank');
+document.getElementById('bookBtn').onclick=()=>runIntent('book');
+document.getElementById('startBtn').onclick=()=>{
   document.getElementById('gate').classList.add('hidden');
-  voiceReady = true;
-  speak("Hi, I'm LSQ Assist. Tell me what's wrong with LeadSquared and I'll guide you. Pick a topic below, or just type.");
+  speak("Good evening. LSQ Assist online. I can look up owners, clear duplicates, reassign leads, create users, or book Surya. How may I help you?");
 };
-
 renderChips();
 
-// --- Three.js guide ---
-const mount = document.getElementById('scene');
-const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+// Jarvis hologram figure
+const mount=document.getElementById('scene');
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-renderer.setSize(innerWidth, innerHeight);
-renderer.setClearColor(0xf5f5f7, 1);
+renderer.setSize(innerWidth,innerHeight);
+renderer.setClearColor(0x02060f,1);
 mount.appendChild(renderer.domElement);
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(42, innerWidth/innerHeight, 0.1, 100);
-camera.position.set(0, 0.15, 3.2);
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(40,innerWidth/innerHeight,0.1,100);
+camera.position.set(0,0.2,3.4);
+scene.add(new THREE.AmbientLight(0x003355,0.55));
+const key=new THREE.DirectionalLight(0x00e5ff,1.2); key.position.set(2,3,4); scene.add(key);
+const rim=new THREE.PointLight(0x00ffa3,0.8,8); rim.position.set(-2,1,2); scene.add(rim);
 
-const hemi = new THREE.HemisphereLight(0xffffff, 0xb0b0b8, 1.1);
-scene.add(hemi);
-const key = new THREE.DirectionalLight(0xffffff, 0.85);
-key.position.set(2,3,4); scene.add(key);
+const guide=new THREE.Group(); scene.add(guide);
+const cyan=new THREE.MeshStandardMaterial({color:0x00e5ff,emissive:0x0077aa,emissiveIntensity:0.55,metalness:0.7,roughness:0.25,transparent:true,opacity:0.85});
+const dark=new THREE.MeshStandardMaterial({color:0x031018,metalness:0.8,roughness:0.35,transparent:true,opacity:0.9});
+const coreMat=new THREE.MeshStandardMaterial({color:0x00ffa3,emissive:0x00ffa3,emissiveIntensity:0.9,metalness:0.5,roughness:0.2});
 
-const guide = new THREE.Group();
-scene.add(guide);
+const torso=new THREE.Mesh(new THREE.CapsuleGeometry(0.42,0.75,10,20),dark); torso.position.y=-0.1; guide.add(torso);
+const chest=new THREE.Mesh(new THREE.CircleGeometry(0.16,32),coreMat); chest.position.set(0,0.05,0.43); guide.add(chest);
+const head=new THREE.Mesh(new THREE.SphereGeometry(0.34,32,32),dark); head.position.y=0.9; guide.add(head);
+const helm=new THREE.Mesh(new THREE.SphereGeometry(0.355,32,16,0,Math.PI*2,0,Math.PI*0.45),cyan); helm.position.y=0.98; guide.add(helm);
+const visor=new THREE.Mesh(new THREE.BoxGeometry(0.4,0.1,0.06),cyan); visor.position.set(0,0.9,0.3); guide.add(visor);
+const mouth=new THREE.Mesh(new THREE.BoxGeometry(0.16,0.03,0.04),cyan); mouth.position.set(0,0.74,0.31); guide.add(mouth);
 
-const bodyMat = new THREE.MeshStandardMaterial({color:0x1d1d1f, metalness:0.2, roughness:0.45});
-const accentMat = new THREE.MeshStandardMaterial({color:0x0071e3, emissive:0x0071e3, emissiveIntensity:0.15, metalness:0.3, roughness:0.35});
-const eyeMat = new THREE.MeshStandardMaterial({color:0xffffff, emissive:0x9ecbff, emissiveIntensity:0.4});
+const ring1=new THREE.Mesh(new THREE.TorusGeometry(0.95,0.012,12,80),cyan); ring1.rotation.x=Math.PI/2; ring1.position.y=-0.95; guide.add(ring1);
+const ring2=new THREE.Mesh(new THREE.TorusGeometry(1.2,0.008,12,80),new THREE.MeshStandardMaterial({color:0x00e5ff,transparent:true,opacity:0.35,emissive:0x00e5ff,emissiveIntensity:0.3}));
+ring2.rotation.x=Math.PI/2.5; ring2.position.y=-0.7; guide.add(ring2);
+const arc=new THREE.Mesh(new THREE.TorusGeometry(1.5,0.01,8,100,Math.PI*1.2),cyan); arc.rotation.y=0.4; guide.add(arc);
 
-const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.45, 0.7, 8, 16), bodyMat);
-torso.position.y = -0.15; guide.add(torso);
-const head = new THREE.Mesh(new THREE.SphereGeometry(0.38, 32, 32), bodyMat);
-head.position.y = 0.85; guide.add(head);
-const visor = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.12, 0.08), accentMat);
-visor.position.set(0, 0.88, 0.34); guide.add(visor);
-const eyeL = new THREE.Mesh(new THREE.SphereGeometry(0.045, 16, 16), eyeMat);
-const eyeR = eyeL.clone();
-eyeL.position.set(-0.1, 0.88, 0.36); eyeR.position.set(0.1, 0.88, 0.36);
-guide.add(eyeL, eyeR);
-const mouth = new THREE.Mesh(new THREE.CapsuleGeometry(0.04, 0.02, 4, 8), accentMat);
-mouth.position.set(0, 0.72, 0.35); guide.add(mouth);
-const ring = new THREE.Mesh(new THREE.TorusGeometry(0.7, 0.02, 12, 64), new THREE.MeshStandardMaterial({color:0x0071e3, transparent:true, opacity:0.35}));
-ring.rotation.x = Math.PI/2; ring.position.y = -0.75; guide.add(ring);
+for(let i=0;i<18;i++){
+  const p=new THREE.Mesh(new THREE.SphereGeometry(0.015,8,8),coreMat);
+  const a=(i/18)*Math.PI*2; p.position.set(Math.cos(a)*1.05, -0.95+Math.sin(i)*0.02, Math.sin(a)*1.05);
+  guide.add(p);
+}
 
-const floor = new THREE.Mesh(new THREE.CircleGeometry(2.2, 64), new THREE.MeshStandardMaterial({color:0xe8e8ed, roughness:1}));
-floor.rotation.x = -Math.PI/2; floor.position.y = -1.05; scene.add(floor);
-
-addEventListener('resize', ()=>{
-  camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
-});
-
-let t0 = performance.now();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+let t0=performance.now();
 function animate(now){
   requestAnimationFrame(animate);
-  const t = (now-t0)/1000;
-  guide.position.y = Math.sin(t*1.2)*0.04;
-  guide.rotation.y = Math.sin(t*0.5)*0.15;
-  ring.rotation.z = t*0.4;
-  const talk = talking ? (0.08 + Math.abs(Math.sin(t*18))*0.12) : 0.04;
-  mouth.scale.set(1, talking?1.8:1, 1);
-  mouth.position.y = 0.72 - (talking?0.01:0);
-  accentMat.emissiveIntensity = talking ? 0.35 + Math.sin(t*20)*0.2 : 0.12;
-  eyeL.scale.setScalar(talking?1.15:1); eyeR.scale.setScalar(talking?1.15:1);
-  renderer.render(scene, camera);
+  const t=(now-t0)/1000;
+  guide.position.y=Math.sin(t*1.4)*0.05;
+  guide.rotation.y=Math.sin(t*0.55)*0.2;
+  ring1.rotation.z=t*0.6; ring2.rotation.z=-t*0.35; arc.rotation.z=t*0.25;
+  coreMat.emissiveIntensity=talking?1.4+Math.sin(t*22)*0.5:0.7;
+  cyan.emissiveIntensity=talking?0.9:0.45;
+  mouth.scale.y=talking?1+Math.abs(Math.sin(t*20))*2.2:1;
+  mouth.scale.x=talking?1.2:1;
+  renderer.render(scene,camera);
 }
 requestAnimationFrame(animate);
 
 fetch('./availability.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{
-  avail = j;
-  const freeNow = j.free_now ?? j.status === 'free' ?? j.is_free;
-  const busy = j.busy_now || j.status === 'busy';
-  if(busy){ dot.className='dot busy'; statusText.textContent='Surya is in a meeting'; }
-  else { dot.className='dot free'; statusText.textContent = freeNow===false ? 'Surya’s calendar loaded' : 'Surya is free now'; }
-  // normalize slots
-  if(!avail.slots && Array.isArray(avail.availability)) avail.slots = avail.availability;
-  if(!avail.slots && Array.isArray(avail)) avail = {slots:avail};
-}).catch(()=>{ statusText.textContent='Calendar sync pending'; });
+  avail=j;
+  const busy=j.busy_now||j.status==='busy';
+  if(busy){dot.className='dot busy'; statusText.textContent='SURYA · IN SESSION';}
+  else{dot.className='dot free'; statusText.textContent='SURYA · AVAILABLE';}
+  if(!avail.slots&&Array.isArray(avail.availability)) avail.slots=avail.availability;
+}).catch(()=>{statusText.textContent='UPLINK PENDING';});
 </script>
 </body>
 </html>
