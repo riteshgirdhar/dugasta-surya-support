@@ -3,118 +3,161 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="theme-color" content="#0b0f14"/>
+<meta name="theme-color" content="#070B14"/>
 <title>LSQ Assist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#0b0f14; --panel:#121821; --panel2:#182130; --line:rgba(255,255,255,.08);
-  --text:#eef3f8; --muted:#8b9bb0; --accent:#5b8cff; --accent2:#7aa2ff; --ok:#3dd68c; --warn:#ffb020;
-  --radius:18px;
+  --bg:#070B14;
+  --bg2:#0C1220;
+  --panel:rgba(18,26,43,.72);
+  --panel-solid:#121A2B;
+  --line:rgba(140,170,255,.14);
+  --text:#F4F7FF;
+  --muted:#8B9BB8;
+  --accent:#6EA8FF;
+  --accent-2:#8B7CFF;
+  --accent-soft:rgba(110,168,255,.14);
+  --ok:#3DDC97;
+  --danger:#FF6B8A;
+  --radius:22px;
+  --shadow:0 24px 80px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.04) inset;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  background:radial-gradient(1200px 600px at 10% -10%, #152238 0%, transparent 55%),
-             radial-gradient(900px 500px at 100% 0%, #1a1430 0%, transparent 45%), var(--bg);
-  color:var(--text); -webkit-font-smoothing:antialiased;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text); background:var(--bg); overflow:hidden;
+  -webkit-font-smoothing:antialiased;
 }
-.app{max-width:720px;margin:0 auto;height:100%;display:flex;flex-direction:column;padding:20px 16px 16px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
-.brand h1{font-size:22px;font-weight:650;letter-spacing:-.03em}
-.brand p{color:var(--muted);font-size:13px;margin-top:2px}
-.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid var(--line);
-  border-radius:999px;padding:7px 11px;font-size:12px;color:var(--muted)}
-.dot{width:7px;height:7px;border-radius:50%;background:#666}
-.dot.free{background:var(--ok);box-shadow:0 0 0 3px rgba(61,214,140,.18)}
-.dot.busy{background:#ff5d5d;box-shadow:0 0 0 3px rgba(255,93,93,.18)}
-.chat{
-  flex:1; min-height:0; overflow:auto; background:rgba(18,24,33,.72); border:1px solid var(--line);
-  border-radius:24px; padding:18px 16px; display:flex; flex-direction:column; gap:12px;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
+.bg{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(900px 500px at 12% -8%, rgba(110,168,255,.28), transparent 60%),
+    radial-gradient(700px 480px at 95% 8%, rgba(139,124,255,.22), transparent 55%),
+    radial-gradient(600px 400px at 50% 110%, rgba(61,220,151,.08), transparent 50%),
+    linear-gradient(180deg, #070B14 0%, #0A1020 100%);
 }
-.msg{max-width:92%; display:flex; flex-direction:column; gap:6px}
+.orb{
+  position:absolute; border-radius:50%; filter:blur(40px); opacity:.55;
+  animation:float 12s ease-in-out infinite;
+}
+.orb.a{width:280px;height:280px;left:-60px;top:20%;background:#6EA8FF}
+.orb.b{width:220px;height:220px;right:-40px;top:55%;background:#8B7CFF;animation-delay:-4s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+.app{
+  position:relative; z-index:1; max-width:760px; margin:0 auto; height:100%;
+  display:flex; flex-direction:column; padding:22px 16px 16px;
+}
+.top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:16px}
+.brand .eyebrow{
+  display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:8px;
+}
+.brand .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.brand h1{font-size:clamp(26px,5vw,34px); font-weight:700; letter-spacing:-.04em; line-height:1.05}
+.brand p{margin-top:6px; color:var(--muted); font-size:14px; max-width:34ch; line-height:1.4}
+.pill{
+  display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+  background:rgba(255,255,255,.04); border:1px solid var(--line); backdrop-filter:blur(12px);
+  font-size:12px; color:var(--muted); font-weight:500;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:#556}
+.dot.free{background:var(--ok); box-shadow:0 0 0 3px rgba(61,220,151,.2)}
+.dot.busy{background:var(--danger); box-shadow:0 0 0 3px rgba(255,107,138,.2)}
+.shell{
+  flex:1; min-height:0; display:flex; flex-direction:column;
+  background:var(--panel); border:1px solid var(--line); border-radius:28px;
+  box-shadow:var(--shadow); backdrop-filter:blur(22px); overflow:hidden;
+}
+.chat{flex:1; min-height:0; overflow:auto; padding:20px 18px; display:flex; flex-direction:column; gap:14px}
+.msg{max-width:88%; display:flex; flex-direction:column; gap:8px}
 .msg.bot{align-self:flex-start}
 .msg.user{align-self:flex-end}
 .bubble{
-  padding:12px 14px; border-radius:16px; font-size:15px; line-height:1.45; letter-spacing:-.01em;
+  padding:13px 15px; border-radius:18px; font-size:14.5px; line-height:1.5; letter-spacing:-.01em;
   white-space:pre-wrap;
 }
-.msg.bot .bubble{background:var(--panel2); border:1px solid var(--line); border-bottom-left-radius:6px}
-.msg.user .bubble{background:linear-gradient(135deg,var(--accent),#4667d8); color:#fff; border-bottom-right-radius:6px}
-.choices{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.msg.bot .bubble{
+  background:linear-gradient(180deg, rgba(28,38,62,.95), rgba(18,26,43,.95));
+  border:1px solid var(--line); border-bottom-left-radius:6px;
+}
+.msg.user .bubble{
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  color:#fff; border-bottom-right-radius:6px;
+  box-shadow:0 10px 30px rgba(110,168,255,.25);
+}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
 .choice{
   border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--text);
-  border-radius:999px; padding:9px 12px; font:inherit; font-size:13px; cursor:pointer;
+  border-radius:999px; padding:10px 13px; font:inherit; font-size:13px; font-weight:500; cursor:pointer;
+  transition:border-color .15s, background .15s, transform .15s;
 }
-.choice:hover{border-color:rgba(91,140,255,.55); background:rgba(91,140,255,.12)}
-.composer{display:flex;gap:8px;margin-top:12px}
-.composer input,.composer textarea{
-  flex:1; resize:none; min-height:48px; max-height:120px; border-radius:16px; border:1px solid var(--line);
-  background:rgba(18,24,33,.9); color:var(--text); padding:14px 14px; font:inherit; font-size:15px; outline:none;
+.choice:hover{border-color:rgba(110,168,255,.55); background:var(--accent-soft); transform:translateY(-1px)}
+.composer{
+  display:flex; gap:10px; padding:14px; border-top:1px solid var(--line);
+  background:rgba(7,11,20,.35);
 }
-.composer input:focus,.composer textarea:focus{border-color:rgba(91,140,255,.55)}
+.composer textarea{
+  flex:1; resize:none; min-height:50px; max-height:120px; border-radius:16px;
+  border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--text);
+  padding:14px 14px; font:inherit; font-size:14.5px; outline:none;
+}
+.composer textarea:focus{border-color:rgba(110,168,255,.5); box-shadow:0 0 0 3px rgba(110,168,255,.12)}
 .composer button, .primary{
-  border:0; border-radius:16px; padding:0 18px; min-height:48px; font:inherit; font-weight:600; font-size:14px;
-  background:linear-gradient(135deg,var(--accent),#4667d8); color:#fff; cursor:pointer;
+  border:0; border-radius:16px; padding:0 18px; min-height:50px; font:inherit; font-weight:600; font-size:14px;
+  background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#fff; cursor:pointer;
+  box-shadow:0 10px 28px rgba(110,168,255,.28);
 }
-.composer button:disabled{opacity:.4;cursor:not-allowed}
-.slots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
-@media(max-width:520px){.slots{grid-template-columns:1fr}}
+.composer button:disabled{opacity:.35; cursor:not-allowed; box-shadow:none}
+.slots{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+@media(max-width:560px){.slots{grid-template-columns:1fr}}
 .slot{
   text-align:left; border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--text);
-  border-radius:14px; padding:12px; font:inherit; font-size:13px; cursor:pointer;
+  border-radius:16px; padding:12px 13px; font:inherit; font-size:13px; cursor:pointer;
 }
-.slot:hover{border-color:rgba(91,140,255,.55)}
-.note{color:var(--muted);font-size:12px;margin-top:4px}
-.summary{background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.14);border-radius:14px;padding:12px;font-size:13px;color:var(--muted)}
-.summary b{color:var(--text);font-weight:600}
-.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.ghost{
-  border:1px solid var(--line); background:transparent; color:var(--text); border-radius:14px;
-  padding:12px 14px; font:inherit; font-size:13px; font-weight:600; cursor:pointer;
+.slot:hover{border-color:rgba(110,168,255,.5); background:var(--accent-soft)}
+.note{color:var(--muted); font-size:12px; line-height:1.4}
+.summary{
+  background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:16px; padding:14px;
+  font-size:13px; color:var(--muted); display:grid; gap:6px;
 }
+.summary b{color:var(--text); font-weight:600}
+.actions{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px}
 </style>
 </head>
 <body>
+<div class="bg"><div class="orb a"></div><div class="orb b"></div></div>
 <div class="app">
   <div class="top">
     <div class="brand">
+      <div class="eyebrow"><i></i> Dugasta support</div>
       <h1>LSQ Assist</h1>
-      <p>Tell me what broke — I’ll gather the RCA for Surya</p>
+      <p>I’ll walk the RCA with you, then email Surya a clean brief.</p>
     </div>
     <div class="pill"><span class="dot" id="dot"></span><span id="statusText">Checking…</span></div>
   </div>
-  <div class="chat" id="chat" aria-live="polite"></div>
-  <div class="composer">
-    <textarea id="input" rows="1" placeholder="Type your reply…" disabled></textarea>
-    <button id="send" disabled>Send</button>
+  <div class="shell">
+    <div class="chat" id="chat" aria-live="polite"></div>
+    <div class="composer">
+      <textarea id="input" rows="1" placeholder="Type your reply…" disabled></textarea>
+      <button id="send" disabled>Send</button>
+    </div>
   </div>
 </div>
 <script>
-const SURYA = 'surya@dugasta.co';
-const chat = document.getElementById('chat');
-const input = document.getElementById('input');
-const sendBtn = document.getElementById('send');
-const state = {
-  name:'', email:'', issueType:'', description:'', leadRef:'', tried:'', screenshot:'',
-  step:0, avail:null
-};
+const SURYA='surya@dugasta.co';
+const chat=document.getElementById('chat');
+const input=document.getElementById('input');
+const sendBtn=document.getElementById('send');
+const state={name:'',email:'',issueType:'',description:'',leadRef:'',tried:'',screenshot:'',step:0,avail:null};
+const ISSUE_TYPES=['Lead ownership / assignment','Duplicate lead','Lead stage or data wrong','Login / access','Call / WhatsApp / activity','Report or KPI','Other'];
 
-const ISSUE_TYPES = [
-  'Lead ownership / assignment',
-  'Duplicate lead',
-  'Lead stage or data wrong',
-  'Login / access',
-  'Call / WhatsApp / activity',
-  'Report or KPI',
-  'Other'
-];
-
-function scrollBottom(){ chat.scrollTop = chat.scrollHeight; }
-function addBot(text, extra){
-  const wrap = document.createElement('div'); wrap.className='msg bot';
-  const b = document.createElement('div'); b.className='bubble'; b.textContent=text; wrap.appendChild(b);
+function scrollBottom(){chat.scrollTop=chat.scrollHeight}
+function addBot(text,extra){
+  const wrap=document.createElement('div'); wrap.className='msg bot';
+  const b=document.createElement('div'); b.className='bubble'; b.textContent=text; wrap.appendChild(b);
   if(extra) wrap.appendChild(extra);
   chat.appendChild(wrap); scrollBottom();
 }
@@ -123,12 +166,8 @@ function addUser(text){
   const b=document.createElement('div'); b.className='bubble'; b.textContent=text; wrap.appendChild(b);
   chat.appendChild(wrap); scrollBottom();
 }
-function setInput(on, placeholder){
-  input.disabled=!on; sendBtn.disabled=!on;
-  input.placeholder=placeholder||'Type your reply…';
-  if(on) setTimeout(()=>input.focus(),50);
-}
-function choiceRow(options, onPick){
+function setInput(on,ph){ input.disabled=!on; sendBtn.disabled=!on; input.placeholder=ph||'Type your reply…'; if(on) setTimeout(()=>input.focus(),40); }
+function choiceRow(options,onPick){
   const row=document.createElement('div'); row.className='choices';
   options.forEach(o=>{
     const btn=document.createElement('button'); btn.className='choice'; btn.type='button'; btn.textContent=o;
@@ -137,72 +176,34 @@ function choiceRow(options, onPick){
   });
   return row;
 }
-
-function askName(){
-  state.step=1;
-  addBot("Hi — I’m LSQ Assist. I’ll ask a few questions, then email a clean RCA to Surya. What’s your name?");
-  setInput(true, 'Your name');
-}
-function askEmail(){
-  state.step=2;
-  addBot(`Thanks, ${state.name}. What’s the best email to reach you on?`);
-  setInput(true, 'you@company.com');
-}
-function askType(){
-  state.step=3;
-  setInput(false);
-  addBot('What kind of LeadSquared issue is this?', choiceRow(ISSUE_TYPES, (v)=>{
-    state.issueType=v; addUser(v); askDescription();
-  }));
-}
-function askDescription(){
-  state.step=4;
-  addBot('In a few lines: what happened, and what should be happening instead?');
-  setInput(true, 'Describe the issue…');
-}
-function askLead(){
-  state.step=5;
-  addBot('Any lead phone, email, or Lead ID I should include? Type “skip” if none.');
-  setInput(true, 'Phone / email / Lead ID');
-}
-function askTried(){
-  state.step=6;
-  addBot('What have you already tried?');
-  setInput(true, 'What you tried…');
-}
-function askShot(){
-  state.step=7;
-  addBot('Optional: paste a screenshot link (Drive / image). Or type “skip”.');
-  setInput(true, 'https://… or skip');
-}
+function askName(){ state.step=1; addBot("Hi — I’m LSQ Assist. I’ll ask a few questions, then email a clean RCA to Surya. What’s your name?"); setInput(true,'Your name'); }
+function askEmail(){ state.step=2; addBot(`Nice to meet you, ${state.name}. What’s the best email to reach you on?`); setInput(true,'you@company.com'); }
+function askType(){ state.step=3; setInput(false); addBot('What kind of LeadSquared issue is this?', choiceRow(ISSUE_TYPES,v=>{state.issueType=v; addUser(v); askDescription();})); }
+function askDescription(){ state.step=4; addBot('In a few lines: what happened, and what should be happening instead?'); setInput(true,'Describe the issue…'); }
+function askLead(){ state.step=5; addBot('Any lead phone, email, or Lead ID I should include? Type “skip” if none.'); setInput(true,'Phone / email / Lead ID'); }
+function askTried(){ state.step=6; addBot('What have you already tried?'); setInput(true,'What you tried…'); }
+function askShot(){ state.step=7; addBot('Optional: paste a screenshot link (Drive / image). Or type “skip”.'); setInput(true,'https://… or skip'); }
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function finishRCA(){
-  state.step=8;
-  setInput(false);
-  const box=document.createElement('div');
-  box.className='summary';
-  box.innerHTML = `<div><b>Name:</b> ${esc(state.name)}</div>
-    <div><b>Email:</b> ${esc(state.email)}</div>
-    <div><b>Type:</b> ${esc(state.issueType)}</div>
-    <div><b>Lead ref:</b> ${esc(state.leadRef||'—')}</div>
-    <div><b>Issue:</b> ${esc(state.description)}</div>
-    <div><b>Tried:</b> ${esc(state.tried)}</div>
-    <div><b>Screenshot:</b> ${esc(state.screenshot||'—')}</div>`;
+  state.step=8; setInput(false);
+  const box=document.createElement('div'); box.className='summary';
+  box.innerHTML=`<div><b>Name:</b> ${esc(state.name)}</div><div><b>Email:</b> ${esc(state.email)}</div><div><b>Type:</b> ${esc(state.issueType)}</div><div><b>Lead ref:</b> ${esc(state.leadRef||'—')}</div><div><b>Issue:</b> ${esc(state.description)}</div><div><b>Tried:</b> ${esc(state.tried)}</div><div><b>Screenshot:</b> ${esc(state.screenshot||'—')}</div>`;
   const actions=document.createElement('div'); actions.className='actions';
   const send=document.createElement('button'); send.className='primary'; send.textContent='Email RCA to Surya';
   send.onclick=()=>{ sendMailto(); afterEmail(); };
   actions.appendChild(send);
-  addBot('Here’s the RCA summary. I’ll open an email to Surya with this filled in — send it from your mail app.', (()=>{const w=document.createElement('div'); w.appendChild(box); w.appendChild(actions); return w;})());
+  const wrap=document.createElement('div'); wrap.appendChild(box); wrap.appendChild(actions);
+  addBot('Here’s the RCA summary. I’ll open an email to Surya with this filled in — hit send in your mail app.', wrap);
 }
-function esc(s){ return String(s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
 function sendMailto(){
-  const subject = `[LSQ Support] ${state.issueType} — ${state.name}`;
-  const body = `LSQ Assist RCA\n\nFrom: ${state.name} <${state.email}>\nIssue type: ${state.issueType}\nLead ref: ${state.leadRef||'n/a'}\n\nWhat happened:\n${state.description}\n\nAlready tried:\n${state.tried}\n\nScreenshot: ${state.screenshot||'n/a'}\n\n— sent via LSQ Assist`;
-  location.href = `mailto:${SURYA}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const subject=`[LSQ Support] ${state.issueType} — ${state.name}`;
+  const body=`LSQ Assist RCA\n\nFrom: ${state.name} <${state.email}>\nIssue type: ${state.issueType}\nLead ref: ${state.leadRef||'n/a'}\n\nWhat happened:\n${state.description}\n\nAlready tried:\n${state.tried}\n\nScreenshot: ${state.screenshot||'n/a'}\n\n— sent via LSQ Assist`;
+  location.href=`mailto:${SURYA}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 function afterEmail(){
   state.step=9;
   addBot('RCA is ready for Surya’s inbox. Want a 15‑minute call with him? I’ll only show open times.',
-    choiceRow(['Yes, book 15 min', 'No, that’s enough'], (v)=>{
+    choiceRow(['Yes, book 15 min','No, that’s enough'], v=>{
       addUser(v);
       if(v.startsWith('Yes')) showBooking();
       else addBot('All set. You can close this page — Surya will get the RCA from your email.');
@@ -211,19 +212,15 @@ function afterEmail(){
 }
 function showBooking(){
   state.step=10;
-  const free = (state.avail?.slots||[]).filter(s=>s.free).slice(0,24);
-  if(!free.length){
-    addBot('No free windows on the calendar right now. The RCA email is still the best next step.');
-    return;
-  }
+  const free=(state.avail?.slots||[]).filter(s=>s.free).slice(0,24);
+  if(!free.length){ addBot('No free windows on the calendar right now. The RCA email is still the best next step.'); return; }
   const wrap=document.createElement('div');
-  const note=document.createElement('div'); note.className='note'; note.textContent='15‑minute sessions · Mon–Sat 9am–6pm IST · grey times are already taken';
+  const note=document.createElement('div'); note.className='note'; note.textContent='15‑minute sessions · Mon–Sat 9am–6pm IST';
   const grid=document.createElement('div'); grid.className='slots';
   free.forEach(s=>{
-    const start=new Date(s.start);
-    const end=new Date(start.getTime()+15*60000);
+    const start=new Date(s.start); const end=new Date(start.getTime()+15*60000);
     const btn=document.createElement('button'); btn.type='button'; btn.className='slot';
-    btn.textContent = start.toLocaleString('en-IN',{weekday:'short', day:'numeric', month:'short', hour:'2-digit', minute:'2-digit', timeZone:'Asia/Kolkata'}) + ' · 15 min';
+    btn.textContent=start.toLocaleString('en-IN',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'})+' · 15 min';
     btn.onclick=()=>book(start,end,s.label||'');
     grid.appendChild(btn);
   });
@@ -234,33 +231,26 @@ function book(start,end,label){
   const fmt=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
   const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('LSQ support — 15 min with Surya')}&details=${encodeURIComponent(`Booked via LSQ Assist\nReporter: ${state.name} <${state.email}>\nIssue: ${state.issueType}\n${state.description}`)}&dates=${fmt(start)}/${fmt(end)}&add=${encodeURIComponent(SURYA)}`;
   window.open(url,'_blank');
-  addUser(label || start.toISOString());
+  addUser(label||start.toISOString());
   addBot('Calendar opened with a 15‑minute invite for Surya. Save it to lock the slot. You’re done.');
 }
-
 function onSend(){
   const text=input.value.trim(); if(!text||input.disabled) return;
   input.value=''; addUser(text);
   if(state.step===1){ state.name=text; askEmail(); return; }
-  if(state.step===2){
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)){ addBot('That doesn’t look like an email. Try again?'); return; }
-    state.email=text; askType(); return;
-  }
+  if(state.step===2){ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)){ addBot('That doesn’t look like an email. Try again?'); return;} state.email=text; askType(); return; }
   if(state.step===4){ state.description=text; askLead(); return; }
   if(state.step===5){ state.leadRef=/^skip$/i.test(text)?'':text; askTried(); return; }
   if(state.step===6){ state.tried=text; askShot(); return; }
   if(state.step===7){ state.screenshot=/^skip$/i.test(text)?'':text; finishRCA(); return; }
 }
 sendBtn.onclick=onSend;
-input.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); onSend(); }});
-
+input.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); onSend(); }});
 fetch('./availability.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{
-  state.avail=j;
-  const busy=j.status==='busy'||j.busy_now;
+  state.avail=j; const busy=j.status==='busy'||j.busy_now;
   document.getElementById('dot').className='dot '+(busy?'busy':'free');
-  document.getElementById('statusText').textContent = busy ? 'Surya in a meeting' : (j.status_label||'Surya available');
-}).catch(()=>{ document.getElementById('statusText').textContent='Calendar pending'; });
-
+  document.getElementById('statusText').textContent=busy?'Surya in a meeting':(j.status_label||'Surya available');
+}).catch(()=>{document.getElementById('statusText').textContent='Calendar pending';});
 askName();
 </script>
 </body>
