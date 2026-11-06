@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-06T11:50:12.489924+05:30",
+  "updated_at": "2026-11-06T12:09:26.434981+05:30",
   "timezone": "Asia/Kolkata",
   "window": "Mon–Sat 09:00–18:00 IST",
   "status": "free",
@@ -753,6 +753,12 @@
       "start": "2026-11-14T11:30:00+05:30",
       "end": "2026-11-14T12:00:00+05:30",
       "label": "Sat 14 Nov · 11:30 AM IST",
+      "free": true
+    },
+    {
+      "start": "2026-11-14T12:00:00+05:30",
+      "end": "2026-11-14T12:30:00+05:30",
+      "label": "Sat 14 Nov · 12:00 PM IST",
       "free": true
     }
   ]
