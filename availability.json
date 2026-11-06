@@ -1,764 +1,764 @@
 {
-  "updated_at": "2026-11-06T19:40:44.444221+05:30",
+  "updated_at": "2026-11-06T21:01:49.389952+05:30",
   "timezone": "Asia/Kolkata",
-  "window": "Mon–Sat 09:00–18:00 IST",
+  "window": "Mon\u2013Sat 09:00\u201318:00 IST",
   "status": "free",
   "status_label": "Free now",
   "slots": [
     {
       "start": "2026-11-07T09:00:00+05:30",
       "end": "2026-11-07T09:30:00+05:30",
-      "label": "Sat 07 Nov · 09:00 AM IST",
+      "label": "Sat 07 Nov \u00b7 09:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-07T09:30:00+05:30",
       "end": "2026-11-07T10:00:00+05:30",
-      "label": "Sat 07 Nov · 09:30 AM IST",
+      "label": "Sat 07 Nov \u00b7 09:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-07T10:00:00+05:30",
       "end": "2026-11-07T10:30:00+05:30",
-      "label": "Sat 07 Nov · 10:00 AM IST",
+      "label": "Sat 07 Nov \u00b7 10:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-07T10:30:00+05:30",
       "end": "2026-11-07T11:00:00+05:30",
-      "label": "Sat 07 Nov · 10:30 AM IST",
+      "label": "Sat 07 Nov \u00b7 10:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-07T11:00:00+05:30",
       "end": "2026-11-07T11:30:00+05:30",
-      "label": "Sat 07 Nov · 11:00 AM IST",
+      "label": "Sat 07 Nov \u00b7 11:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-07T11:30:00+05:30",
       "end": "2026-11-07T12:00:00+05:30",
-      "label": "Sat 07 Nov · 11:30 AM IST",
+      "label": "Sat 07 Nov \u00b7 11:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-07T12:00:00+05:30",
       "end": "2026-11-07T12:30:00+05:30",
-      "label": "Sat 07 Nov · 12:00 PM IST",
+      "label": "Sat 07 Nov \u00b7 12:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-07T12:30:00+05:30",
       "end": "2026-11-07T13:00:00+05:30",
-      "label": "Sat 07 Nov · 12:30 PM IST",
+      "label": "Sat 07 Nov \u00b7 12:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-07T13:00:00+05:30",
       "end": "2026-11-07T13:30:00+05:30",
-      "label": "Sat 07 Nov · 01:00 PM IST",
+      "label": "Sat 07 Nov \u00b7 01:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-07T13:30:00+05:30",
       "end": "2026-11-07T14:00:00+05:30",
-      "label": "Sat 07 Nov · 01:30 PM IST",
+      "label": "Sat 07 Nov \u00b7 01:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-07T14:00:00+05:30",
       "end": "2026-11-07T14:30:00+05:30",
-      "label": "Sat 07 Nov · 02:00 PM IST",
+      "label": "Sat 07 Nov \u00b7 02:00 PM IST",
       "free": false
     },
     {
       "start": "2026-11-07T14:30:00+05:30",
       "end": "2026-11-07T15:00:00+05:30",
-      "label": "Sat 07 Nov · 02:30 PM IST",
+      "label": "Sat 07 Nov \u00b7 02:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-07T15:00:00+05:30",
       "end": "2026-11-07T15:30:00+05:30",
-      "label": "Sat 07 Nov · 03:00 PM IST",
+      "label": "Sat 07 Nov \u00b7 03:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-07T15:30:00+05:30",
       "end": "2026-11-07T16:00:00+05:30",
-      "label": "Sat 07 Nov · 03:30 PM IST",
+      "label": "Sat 07 Nov \u00b7 03:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-07T16:00:00+05:30",
       "end": "2026-11-07T16:30:00+05:30",
-      "label": "Sat 07 Nov · 04:00 PM IST",
+      "label": "Sat 07 Nov \u00b7 04:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-07T16:30:00+05:30",
       "end": "2026-11-07T17:00:00+05:30",
-      "label": "Sat 07 Nov · 04:30 PM IST",
+      "label": "Sat 07 Nov \u00b7 04:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-07T17:00:00+05:30",
       "end": "2026-11-07T17:30:00+05:30",
-      "label": "Sat 07 Nov · 05:00 PM IST",
+      "label": "Sat 07 Nov \u00b7 05:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-07T17:30:00+05:30",
       "end": "2026-11-07T18:00:00+05:30",
-      "label": "Sat 07 Nov · 05:30 PM IST",
+      "label": "Sat 07 Nov \u00b7 05:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-09T09:00:00+05:30",
       "end": "2026-11-09T09:30:00+05:30",
-      "label": "Mon 09 Nov · 09:00 AM IST",
+      "label": "Mon 09 Nov \u00b7 09:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-09T09:30:00+05:30",
       "end": "2026-11-09T10:00:00+05:30",
-      "label": "Mon 09 Nov · 09:30 AM IST",
+      "label": "Mon 09 Nov \u00b7 09:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-09T10:00:00+05:30",
       "end": "2026-11-09T10:30:00+05:30",
-      "label": "Mon 09 Nov · 10:00 AM IST",
+      "label": "Mon 09 Nov \u00b7 10:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-09T10:30:00+05:30",
       "end": "2026-11-09T11:00:00+05:30",
-      "label": "Mon 09 Nov · 10:30 AM IST",
+      "label": "Mon 09 Nov \u00b7 10:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-09T11:00:00+05:30",
       "end": "2026-11-09T11:30:00+05:30",
-      "label": "Mon 09 Nov · 11:00 AM IST",
+      "label": "Mon 09 Nov \u00b7 11:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-09T11:30:00+05:30",
       "end": "2026-11-09T12:00:00+05:30",
-      "label": "Mon 09 Nov · 11:30 AM IST",
+      "label": "Mon 09 Nov \u00b7 11:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-09T12:00:00+05:30",
       "end": "2026-11-09T12:30:00+05:30",
-      "label": "Mon 09 Nov · 12:00 PM IST",
+      "label": "Mon 09 Nov \u00b7 12:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-09T12:30:00+05:30",
       "end": "2026-11-09T13:00:00+05:30",
-      "label": "Mon 09 Nov · 12:30 PM IST",
+      "label": "Mon 09 Nov \u00b7 12:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-09T13:00:00+05:30",
       "end": "2026-11-09T13:30:00+05:30",
-      "label": "Mon 09 Nov · 01:00 PM IST",
+      "label": "Mon 09 Nov \u00b7 01:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-09T13:30:00+05:30",
       "end": "2026-11-09T14:00:00+05:30",
-      "label": "Mon 09 Nov · 01:30 PM IST",
+      "label": "Mon 09 Nov \u00b7 01:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-09T14:00:00+05:30",
       "end": "2026-11-09T14:30:00+05:30",
-      "label": "Mon 09 Nov · 02:00 PM IST",
+      "label": "Mon 09 Nov \u00b7 02:00 PM IST",
       "free": false
     },
     {
       "start": "2026-11-09T14:30:00+05:30",
       "end": "2026-11-09T15:00:00+05:30",
-      "label": "Mon 09 Nov · 02:30 PM IST",
+      "label": "Mon 09 Nov \u00b7 02:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-09T15:00:00+05:30",
       "end": "2026-11-09T15:30:00+05:30",
-      "label": "Mon 09 Nov · 03:00 PM IST",
+      "label": "Mon 09 Nov \u00b7 03:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-09T15:30:00+05:30",
       "end": "2026-11-09T16:00:00+05:30",
-      "label": "Mon 09 Nov · 03:30 PM IST",
+      "label": "Mon 09 Nov \u00b7 03:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-09T16:00:00+05:30",
       "end": "2026-11-09T16:30:00+05:30",
-      "label": "Mon 09 Nov · 04:00 PM IST",
+      "label": "Mon 09 Nov \u00b7 04:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-09T16:30:00+05:30",
       "end": "2026-11-09T17:00:00+05:30",
-      "label": "Mon 09 Nov · 04:30 PM IST",
+      "label": "Mon 09 Nov \u00b7 04:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-09T17:00:00+05:30",
       "end": "2026-11-09T17:30:00+05:30",
-      "label": "Mon 09 Nov · 05:00 PM IST",
+      "label": "Mon 09 Nov \u00b7 05:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-09T17:30:00+05:30",
       "end": "2026-11-09T18:00:00+05:30",
-      "label": "Mon 09 Nov · 05:30 PM IST",
+      "label": "Mon 09 Nov \u00b7 05:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-10T09:00:00+05:30",
       "end": "2026-11-10T09:30:00+05:30",
-      "label": "Tue 10 Nov · 09:00 AM IST",
+      "label": "Tue 10 Nov \u00b7 09:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-10T09:30:00+05:30",
       "end": "2026-11-10T10:00:00+05:30",
-      "label": "Tue 10 Nov · 09:30 AM IST",
+      "label": "Tue 10 Nov \u00b7 09:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-10T10:00:00+05:30",
       "end": "2026-11-10T10:30:00+05:30",
-      "label": "Tue 10 Nov · 10:00 AM IST",
+      "label": "Tue 10 Nov \u00b7 10:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-10T10:30:00+05:30",
       "end": "2026-11-10T11:00:00+05:30",
-      "label": "Tue 10 Nov · 10:30 AM IST",
+      "label": "Tue 10 Nov \u00b7 10:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-10T11:00:00+05:30",
       "end": "2026-11-10T11:30:00+05:30",
-      "label": "Tue 10 Nov · 11:00 AM IST",
+      "label": "Tue 10 Nov \u00b7 11:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-10T11:30:00+05:30",
       "end": "2026-11-10T12:00:00+05:30",
-      "label": "Tue 10 Nov · 11:30 AM IST",
+      "label": "Tue 10 Nov \u00b7 11:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-10T12:00:00+05:30",
       "end": "2026-11-10T12:30:00+05:30",
-      "label": "Tue 10 Nov · 12:00 PM IST",
+      "label": "Tue 10 Nov \u00b7 12:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-10T12:30:00+05:30",
       "end": "2026-11-10T13:00:00+05:30",
-      "label": "Tue 10 Nov · 12:30 PM IST",
+      "label": "Tue 10 Nov \u00b7 12:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-10T13:00:00+05:30",
       "end": "2026-11-10T13:30:00+05:30",
-      "label": "Tue 10 Nov · 01:00 PM IST",
+      "label": "Tue 10 Nov \u00b7 01:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-10T13:30:00+05:30",
       "end": "2026-11-10T14:00:00+05:30",
-      "label": "Tue 10 Nov · 01:30 PM IST",
+      "label": "Tue 10 Nov \u00b7 01:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-10T14:00:00+05:30",
       "end": "2026-11-10T14:30:00+05:30",
-      "label": "Tue 10 Nov · 02:00 PM IST",
+      "label": "Tue 10 Nov \u00b7 02:00 PM IST",
       "free": false
     },
     {
       "start": "2026-11-10T14:30:00+05:30",
       "end": "2026-11-10T15:00:00+05:30",
-      "label": "Tue 10 Nov · 02:30 PM IST",
+      "label": "Tue 10 Nov \u00b7 02:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-10T15:00:00+05:30",
       "end": "2026-11-10T15:30:00+05:30",
-      "label": "Tue 10 Nov · 03:00 PM IST",
+      "label": "Tue 10 Nov \u00b7 03:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-10T15:30:00+05:30",
       "end": "2026-11-10T16:00:00+05:30",
-      "label": "Tue 10 Nov · 03:30 PM IST",
+      "label": "Tue 10 Nov \u00b7 03:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-10T16:00:00+05:30",
       "end": "2026-11-10T16:30:00+05:30",
-      "label": "Tue 10 Nov · 04:00 PM IST",
+      "label": "Tue 10 Nov \u00b7 04:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-10T16:30:00+05:30",
       "end": "2026-11-10T17:00:00+05:30",
-      "label": "Tue 10 Nov · 04:30 PM IST",
+      "label": "Tue 10 Nov \u00b7 04:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-10T17:00:00+05:30",
       "end": "2026-11-10T17:30:00+05:30",
-      "label": "Tue 10 Nov · 05:00 PM IST",
+      "label": "Tue 10 Nov \u00b7 05:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-10T17:30:00+05:30",
       "end": "2026-11-10T18:00:00+05:30",
-      "label": "Tue 10 Nov · 05:30 PM IST",
+      "label": "Tue 10 Nov \u00b7 05:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-11T09:00:00+05:30",
       "end": "2026-11-11T09:30:00+05:30",
-      "label": "Wed 11 Nov · 09:00 AM IST",
+      "label": "Wed 11 Nov \u00b7 09:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-11T09:30:00+05:30",
       "end": "2026-11-11T10:00:00+05:30",
-      "label": "Wed 11 Nov · 09:30 AM IST",
+      "label": "Wed 11 Nov \u00b7 09:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-11T10:00:00+05:30",
       "end": "2026-11-11T10:30:00+05:30",
-      "label": "Wed 11 Nov · 10:00 AM IST",
+      "label": "Wed 11 Nov \u00b7 10:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-11T10:30:00+05:30",
       "end": "2026-11-11T11:00:00+05:30",
-      "label": "Wed 11 Nov · 10:30 AM IST",
+      "label": "Wed 11 Nov \u00b7 10:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-11T11:00:00+05:30",
       "end": "2026-11-11T11:30:00+05:30",
-      "label": "Wed 11 Nov · 11:00 AM IST",
+      "label": "Wed 11 Nov \u00b7 11:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-11T11:30:00+05:30",
       "end": "2026-11-11T12:00:00+05:30",
-      "label": "Wed 11 Nov · 11:30 AM IST",
+      "label": "Wed 11 Nov \u00b7 11:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-11T12:00:00+05:30",
       "end": "2026-11-11T12:30:00+05:30",
-      "label": "Wed 11 Nov · 12:00 PM IST",
+      "label": "Wed 11 Nov \u00b7 12:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-11T12:30:00+05:30",
       "end": "2026-11-11T13:00:00+05:30",
-      "label": "Wed 11 Nov · 12:30 PM IST",
+      "label": "Wed 11 Nov \u00b7 12:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-11T13:00:00+05:30",
       "end": "2026-11-11T13:30:00+05:30",
-      "label": "Wed 11 Nov · 01:00 PM IST",
+      "label": "Wed 11 Nov \u00b7 01:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-11T13:30:00+05:30",
       "end": "2026-11-11T14:00:00+05:30",
-      "label": "Wed 11 Nov · 01:30 PM IST",
+      "label": "Wed 11 Nov \u00b7 01:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-11T14:00:00+05:30",
       "end": "2026-11-11T14:30:00+05:30",
-      "label": "Wed 11 Nov · 02:00 PM IST",
+      "label": "Wed 11 Nov \u00b7 02:00 PM IST",
       "free": false
     },
     {
       "start": "2026-11-11T14:30:00+05:30",
       "end": "2026-11-11T15:00:00+05:30",
-      "label": "Wed 11 Nov · 02:30 PM IST",
+      "label": "Wed 11 Nov \u00b7 02:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-11T15:00:00+05:30",
       "end": "2026-11-11T15:30:00+05:30",
-      "label": "Wed 11 Nov · 03:00 PM IST",
+      "label": "Wed 11 Nov \u00b7 03:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-11T15:30:00+05:30",
       "end": "2026-11-11T16:00:00+05:30",
-      "label": "Wed 11 Nov · 03:30 PM IST",
+      "label": "Wed 11 Nov \u00b7 03:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-11T16:00:00+05:30",
       "end": "2026-11-11T16:30:00+05:30",
-      "label": "Wed 11 Nov · 04:00 PM IST",
+      "label": "Wed 11 Nov \u00b7 04:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-11T16:30:00+05:30",
       "end": "2026-11-11T17:00:00+05:30",
-      "label": "Wed 11 Nov · 04:30 PM IST",
+      "label": "Wed 11 Nov \u00b7 04:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-11T17:00:00+05:30",
       "end": "2026-11-11T17:30:00+05:30",
-      "label": "Wed 11 Nov · 05:00 PM IST",
+      "label": "Wed 11 Nov \u00b7 05:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-11T17:30:00+05:30",
       "end": "2026-11-11T18:00:00+05:30",
-      "label": "Wed 11 Nov · 05:30 PM IST",
+      "label": "Wed 11 Nov \u00b7 05:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-12T09:00:00+05:30",
       "end": "2026-11-12T09:30:00+05:30",
-      "label": "Thu 12 Nov · 09:00 AM IST",
+      "label": "Thu 12 Nov \u00b7 09:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-12T09:30:00+05:30",
       "end": "2026-11-12T10:00:00+05:30",
-      "label": "Thu 12 Nov · 09:30 AM IST",
+      "label": "Thu 12 Nov \u00b7 09:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-12T10:00:00+05:30",
       "end": "2026-11-12T10:30:00+05:30",
-      "label": "Thu 12 Nov · 10:00 AM IST",
+      "label": "Thu 12 Nov \u00b7 10:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-12T10:30:00+05:30",
       "end": "2026-11-12T11:00:00+05:30",
-      "label": "Thu 12 Nov · 10:30 AM IST",
+      "label": "Thu 12 Nov \u00b7 10:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-12T11:00:00+05:30",
       "end": "2026-11-12T11:30:00+05:30",
-      "label": "Thu 12 Nov · 11:00 AM IST",
+      "label": "Thu 12 Nov \u00b7 11:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-12T11:30:00+05:30",
       "end": "2026-11-12T12:00:00+05:30",
-      "label": "Thu 12 Nov · 11:30 AM IST",
+      "label": "Thu 12 Nov \u00b7 11:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-12T12:00:00+05:30",
       "end": "2026-11-12T12:30:00+05:30",
-      "label": "Thu 12 Nov · 12:00 PM IST",
+      "label": "Thu 12 Nov \u00b7 12:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-12T12:30:00+05:30",
       "end": "2026-11-12T13:00:00+05:30",
-      "label": "Thu 12 Nov · 12:30 PM IST",
+      "label": "Thu 12 Nov \u00b7 12:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-12T13:00:00+05:30",
       "end": "2026-11-12T13:30:00+05:30",
-      "label": "Thu 12 Nov · 01:00 PM IST",
+      "label": "Thu 12 Nov \u00b7 01:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-12T13:30:00+05:30",
       "end": "2026-11-12T14:00:00+05:30",
-      "label": "Thu 12 Nov · 01:30 PM IST",
+      "label": "Thu 12 Nov \u00b7 01:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-12T14:00:00+05:30",
       "end": "2026-11-12T14:30:00+05:30",
-      "label": "Thu 12 Nov · 02:00 PM IST",
+      "label": "Thu 12 Nov \u00b7 02:00 PM IST",
       "free": false
     },
     {
       "start": "2026-11-12T14:30:00+05:30",
       "end": "2026-11-12T15:00:00+05:30",
-      "label": "Thu 12 Nov · 02:30 PM IST",
+      "label": "Thu 12 Nov \u00b7 02:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-12T15:00:00+05:30",
       "end": "2026-11-12T15:30:00+05:30",
-      "label": "Thu 12 Nov · 03:00 PM IST",
+      "label": "Thu 12 Nov \u00b7 03:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-12T15:30:00+05:30",
       "end": "2026-11-12T16:00:00+05:30",
-      "label": "Thu 12 Nov · 03:30 PM IST",
+      "label": "Thu 12 Nov \u00b7 03:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-12T16:00:00+05:30",
       "end": "2026-11-12T16:30:00+05:30",
-      "label": "Thu 12 Nov · 04:00 PM IST",
+      "label": "Thu 12 Nov \u00b7 04:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-12T16:30:00+05:30",
       "end": "2026-11-12T17:00:00+05:30",
-      "label": "Thu 12 Nov · 04:30 PM IST",
+      "label": "Thu 12 Nov \u00b7 04:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-12T17:00:00+05:30",
       "end": "2026-11-12T17:30:00+05:30",
-      "label": "Thu 12 Nov · 05:00 PM IST",
+      "label": "Thu 12 Nov \u00b7 05:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-12T17:30:00+05:30",
       "end": "2026-11-12T18:00:00+05:30",
-      "label": "Thu 12 Nov · 05:30 PM IST",
+      "label": "Thu 12 Nov \u00b7 05:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-13T09:00:00+05:30",
       "end": "2026-11-13T09:30:00+05:30",
-      "label": "Fri 13 Nov · 09:00 AM IST",
+      "label": "Fri 13 Nov \u00b7 09:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-13T09:30:00+05:30",
       "end": "2026-11-13T10:00:00+05:30",
-      "label": "Fri 13 Nov · 09:30 AM IST",
+      "label": "Fri 13 Nov \u00b7 09:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-13T10:00:00+05:30",
       "end": "2026-11-13T10:30:00+05:30",
-      "label": "Fri 13 Nov · 10:00 AM IST",
+      "label": "Fri 13 Nov \u00b7 10:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-13T10:30:00+05:30",
       "end": "2026-11-13T11:00:00+05:30",
-      "label": "Fri 13 Nov · 10:30 AM IST",
+      "label": "Fri 13 Nov \u00b7 10:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-13T11:00:00+05:30",
       "end": "2026-11-13T11:30:00+05:30",
-      "label": "Fri 13 Nov · 11:00 AM IST",
+      "label": "Fri 13 Nov \u00b7 11:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-13T11:30:00+05:30",
       "end": "2026-11-13T12:00:00+05:30",
-      "label": "Fri 13 Nov · 11:30 AM IST",
+      "label": "Fri 13 Nov \u00b7 11:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-13T12:00:00+05:30",
       "end": "2026-11-13T12:30:00+05:30",
-      "label": "Fri 13 Nov · 12:00 PM IST",
+      "label": "Fri 13 Nov \u00b7 12:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-13T12:30:00+05:30",
       "end": "2026-11-13T13:00:00+05:30",
-      "label": "Fri 13 Nov · 12:30 PM IST",
+      "label": "Fri 13 Nov \u00b7 12:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-13T13:00:00+05:30",
       "end": "2026-11-13T13:30:00+05:30",
-      "label": "Fri 13 Nov · 01:00 PM IST",
+      "label": "Fri 13 Nov \u00b7 01:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-13T13:30:00+05:30",
       "end": "2026-11-13T14:00:00+05:30",
-      "label": "Fri 13 Nov · 01:30 PM IST",
+      "label": "Fri 13 Nov \u00b7 01:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-13T14:00:00+05:30",
       "end": "2026-11-13T14:30:00+05:30",
-      "label": "Fri 13 Nov · 02:00 PM IST",
+      "label": "Fri 13 Nov \u00b7 02:00 PM IST",
       "free": false
     },
     {
       "start": "2026-11-13T14:30:00+05:30",
       "end": "2026-11-13T15:00:00+05:30",
-      "label": "Fri 13 Nov · 02:30 PM IST",
+      "label": "Fri 13 Nov \u00b7 02:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-13T15:00:00+05:30",
       "end": "2026-11-13T15:30:00+05:30",
-      "label": "Fri 13 Nov · 03:00 PM IST",
+      "label": "Fri 13 Nov \u00b7 03:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-13T15:30:00+05:30",
       "end": "2026-11-13T16:00:00+05:30",
-      "label": "Fri 13 Nov · 03:30 PM IST",
+      "label": "Fri 13 Nov \u00b7 03:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-13T16:00:00+05:30",
       "end": "2026-11-13T16:30:00+05:30",
-      "label": "Fri 13 Nov · 04:00 PM IST",
+      "label": "Fri 13 Nov \u00b7 04:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-13T16:30:00+05:30",
       "end": "2026-11-13T17:00:00+05:30",
-      "label": "Fri 13 Nov · 04:30 PM IST",
+      "label": "Fri 13 Nov \u00b7 04:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-13T17:00:00+05:30",
       "end": "2026-11-13T17:30:00+05:30",
-      "label": "Fri 13 Nov · 05:00 PM IST",
+      "label": "Fri 13 Nov \u00b7 05:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-13T17:30:00+05:30",
       "end": "2026-11-13T18:00:00+05:30",
-      "label": "Fri 13 Nov · 05:30 PM IST",
+      "label": "Fri 13 Nov \u00b7 05:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-14T09:00:00+05:30",
       "end": "2026-11-14T09:30:00+05:30",
-      "label": "Sat 14 Nov · 09:00 AM IST",
+      "label": "Sat 14 Nov \u00b7 09:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-14T09:30:00+05:30",
       "end": "2026-11-14T10:00:00+05:30",
-      "label": "Sat 14 Nov · 09:30 AM IST",
+      "label": "Sat 14 Nov \u00b7 09:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-14T10:00:00+05:30",
       "end": "2026-11-14T10:30:00+05:30",
-      "label": "Sat 14 Nov · 10:00 AM IST",
+      "label": "Sat 14 Nov \u00b7 10:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-14T10:30:00+05:30",
       "end": "2026-11-14T11:00:00+05:30",
-      "label": "Sat 14 Nov · 10:30 AM IST",
+      "label": "Sat 14 Nov \u00b7 10:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-14T11:00:00+05:30",
       "end": "2026-11-14T11:30:00+05:30",
-      "label": "Sat 14 Nov · 11:00 AM IST",
+      "label": "Sat 14 Nov \u00b7 11:00 AM IST",
       "free": true
     },
     {
       "start": "2026-11-14T11:30:00+05:30",
       "end": "2026-11-14T12:00:00+05:30",
-      "label": "Sat 14 Nov · 11:30 AM IST",
+      "label": "Sat 14 Nov \u00b7 11:30 AM IST",
       "free": true
     },
     {
       "start": "2026-11-14T12:00:00+05:30",
       "end": "2026-11-14T12:30:00+05:30",
-      "label": "Sat 14 Nov · 12:00 PM IST",
+      "label": "Sat 14 Nov \u00b7 12:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-14T12:30:00+05:30",
       "end": "2026-11-14T13:00:00+05:30",
-      "label": "Sat 14 Nov · 12:30 PM IST",
+      "label": "Sat 14 Nov \u00b7 12:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-14T13:00:00+05:30",
       "end": "2026-11-14T13:30:00+05:30",
-      "label": "Sat 14 Nov · 01:00 PM IST",
+      "label": "Sat 14 Nov \u00b7 01:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-14T13:30:00+05:30",
       "end": "2026-11-14T14:00:00+05:30",
-      "label": "Sat 14 Nov · 01:30 PM IST",
+      "label": "Sat 14 Nov \u00b7 01:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-14T14:00:00+05:30",
       "end": "2026-11-14T14:30:00+05:30",
-      "label": "Sat 14 Nov · 02:00 PM IST",
+      "label": "Sat 14 Nov \u00b7 02:00 PM IST",
       "free": false
     },
     {
       "start": "2026-11-14T14:30:00+05:30",
       "end": "2026-11-14T15:00:00+05:30",
-      "label": "Sat 14 Nov · 02:30 PM IST",
+      "label": "Sat 14 Nov \u00b7 02:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-14T15:00:00+05:30",
       "end": "2026-11-14T15:30:00+05:30",
-      "label": "Sat 14 Nov · 03:00 PM IST",
+      "label": "Sat 14 Nov \u00b7 03:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-14T15:30:00+05:30",
       "end": "2026-11-14T16:00:00+05:30",
-      "label": "Sat 14 Nov · 03:30 PM IST",
+      "label": "Sat 14 Nov \u00b7 03:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-14T16:00:00+05:30",
       "end": "2026-11-14T16:30:00+05:30",
-      "label": "Sat 14 Nov · 04:00 PM IST",
+      "label": "Sat 14 Nov \u00b7 04:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-14T16:30:00+05:30",
       "end": "2026-11-14T17:00:00+05:30",
-      "label": "Sat 14 Nov · 04:30 PM IST",
+      "label": "Sat 14 Nov \u00b7 04:30 PM IST",
       "free": true
     },
     {
       "start": "2026-11-14T17:00:00+05:30",
       "end": "2026-11-14T17:30:00+05:30",
-      "label": "Sat 14 Nov · 05:00 PM IST",
+      "label": "Sat 14 Nov \u00b7 05:00 PM IST",
       "free": true
     },
     {
       "start": "2026-11-14T17:30:00+05:30",
       "end": "2026-11-14T18:00:00+05:30",
-      "label": "Sat 14 Nov · 05:30 PM IST",
+      "label": "Sat 14 Nov \u00b7 05:30 PM IST",
       "free": true
     }
   ]
