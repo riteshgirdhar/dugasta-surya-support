@@ -1,16 +1,10 @@
 {
-  "updated_at": "2026-11-09T14:23:06+05:30",
+  "updated_at": "2026-11-09T14:40:24+05:30",
   "timezone": "Asia/Kolkata",
   "window": "Mon\u2013Sat 09:00\u201318:00 IST",
-  "status": "busy",
-  "status_label": "Busy now",
+  "status": "free",
+  "status_label": "Free now",
   "slots": [
-    {
-      "start": "2026-11-09T15:00:00+05:30",
-      "end": "2026-11-09T15:30:00+05:30",
-      "label": "Mon 09 Nov \u00b7 03:00 PM IST",
-      "free": true
-    },
     {
       "start": "2026-11-09T15:30:00+05:30",
       "end": "2026-11-09T16:00:00+05:30",
@@ -759,42 +753,6 @@
       "start": "2026-11-17T14:30:00+05:30",
       "end": "2026-11-17T15:00:00+05:30",
       "label": "Tue 17 Nov \u00b7 02:30 PM IST",
-      "free": true
-    },
-    {
-      "start": "2026-11-17T15:00:00+05:30",
-      "end": "2026-11-17T15:30:00+05:30",
-      "label": "Tue 17 Nov \u00b7 03:00 PM IST",
-      "free": true
-    },
-    {
-      "start": "2026-11-17T15:30:00+05:30",
-      "end": "2026-11-17T16:00:00+05:30",
-      "label": "Tue 17 Nov \u00b7 03:30 PM IST",
-      "free": true
-    },
-    {
-      "start": "2026-11-17T16:00:00+05:30",
-      "end": "2026-11-17T16:30:00+05:30",
-      "label": "Tue 17 Nov \u00b7 04:00 PM IST",
-      "free": true
-    },
-    {
-      "start": "2026-11-17T16:30:00+05:30",
-      "end": "2026-11-17T17:00:00+05:30",
-      "label": "Tue 17 Nov \u00b7 04:30 PM IST",
-      "free": true
-    },
-    {
-      "start": "2026-11-17T17:00:00+05:30",
-      "end": "2026-11-17T17:30:00+05:30",
-      "label": "Tue 17 Nov \u00b7 05:00 PM IST",
-      "free": true
-    },
-    {
-      "start": "2026-11-17T17:30:00+05:30",
-      "end": "2026-11-17T18:00:00+05:30",
-      "label": "Tue 17 Nov \u00b7 05:30 PM IST",
       "free": true
     }
   ]
