@@ -1,16 +1,10 @@
 {
-  "updated_at": "2026-11-11T12:01:30+05:30",
+  "updated_at": "2026-11-11T12:13:08+05:30",
   "timezone": "Asia/Kolkata",
   "window": "Mon\u2013Sat 09:00\u201318:00 IST",
   "status": "free",
   "status_label": "Free now",
   "slots": [
-    {
-      "start": "2026-11-11T12:30:00+05:30",
-      "end": "2026-11-11T13:00:00+05:30",
-      "label": "Wed 11 Nov \u00b7 12:30 PM IST",
-      "free": true
-    },
     {
       "start": "2026-11-11T13:00:00+05:30",
       "end": "2026-11-11T13:30:00+05:30",
