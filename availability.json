@@ -1,16 +1,10 @@
 {
-  "updated_at": "2026-11-11T13:53:43+05:30",
+  "updated_at": "2026-11-11T14:14:58+05:30",
   "timezone": "Asia/Kolkata",
   "window": "Mon\u2013Sat 09:00\u201318:00 IST",
-  "status": "free",
-  "status_label": "Free now",
+  "status": "busy",
+  "status_label": "In a meeting",
   "slots": [
-    {
-      "start": "2026-11-11T14:30:00+05:30",
-      "end": "2026-11-11T15:00:00+05:30",
-      "label": "Wed 11 Nov \u00b7 02:30 PM IST",
-      "free": true
-    },
     {
       "start": "2026-11-11T15:00:00+05:30",
       "end": "2026-11-11T15:30:00+05:30",
@@ -754,6 +748,12 @@
       "end": "2026-11-19T14:00:00+05:30",
       "label": "Thu 19 Nov \u00b7 01:30 PM IST",
       "free": true
+    },
+    {
+      "start": "2026-11-19T14:00:00+05:30",
+      "end": "2026-11-19T14:30:00+05:30",
+      "label": "Thu 19 Nov \u00b7 02:00 PM IST",
+      "free": false
     }
   ]
 }
