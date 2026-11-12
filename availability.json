@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T17:28:58+05:30",
+  "updated_at": "2026-11-12T17:41:24+05:30",
   "timezone": "Asia/Kolkata",
   "window": "Mon\u2013Sat 09:00\u201318:00 IST",
   "status": "free",
@@ -753,6 +753,12 @@
       "start": "2026-11-20T17:00:00+05:30",
       "end": "2026-11-20T17:30:00+05:30",
       "label": "Fri 20 Nov \u00b7 05:00 PM IST",
+      "free": true
+    },
+    {
+      "start": "2026-11-20T17:30:00+05:30",
+      "end": "2026-11-20T18:00:00+05:30",
+      "label": "Fri 20 Nov \u00b7 05:30 PM IST",
       "free": true
     }
   ]
