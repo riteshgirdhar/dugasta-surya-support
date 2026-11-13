@@ -8,7 +8,7 @@ async function go(){const c=q.value.trim();if(!c)return;history.replaceState(0,'
 if(!t){out.innerHTML='<div class="card">No ticket <b class="mono">'+esc(c)+'</b> found. Check the ID from your confirmation.</div>';return;}
 const i=Math.max(0,ST.indexOf(t.status));out.innerHTML=`<div class="card"><div class="tid mono">${esc(t.code)}</div><span class="st">${esc(t.status)}</span> <span class="mu">${esc(t.severity||'')} · ${esc(t.playbook||'')}</span>
 <div class="tl">${ST.map((s,j)=>`<span class="${j<=i?'on':''}" title="${s}"></span>`).join('')}</div><div class="mu" style="font-size:12px">${ST.join(' → ')}</div>
-<p>${esc(t.summary||'')}</p>${t.surya_note?`<p><b>Surya:</b> ${esc(t.surya_note)}</p>`:''}
+<p>${esc(t.summary||'')}</p>${t.lead_types?`<p><b>Types of lead required:</b> ${esc(t.lead_types)}</p>`:''}${t.surya_note?`<p><b>Surya:</b> ${esc(t.surya_note)}</p>`:''}
 <p class="mu" style="font-size:12px">Raised ${new Date(t.created_at).toLocaleString('en-GB',{timeZone:'Asia/Dubai'})} Dubai · source: ${t.mode==='db'?'central queue':t.mode==='mirror'?'support log':'this device only'}</p></div>`;}
 const u=new URLSearchParams(location.search).get('t');if(u){q.value=u;go();}q.onkeydown=e=>e.key==='Enter'&&go();
 </script></body></html>

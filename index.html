@@ -14,7 +14,8 @@ stage:{t:'Wrong stage / status',d:'Stage stuck, jumped, or won’t update',steps
 login:{t:'Login / OTP / access',d:'Can’t sign in, OTP not coming, locked',steps:['Use the exact work email; try an incognito window.','OTP: wait 60s, check spam/promotions, don’t request more than 3 times (lockout ~15 min).','Mobile app: log out fully, update the app, log in again.','Still locked → ticket with your email + screenshot of the error.']},
 calls:{t:'Calls (Knowlarity)',d:'Calls not logging, can’t dial, no recording',steps:['Check your agent number is correct in your LSQ profile.','Call logs sync with delay — wait 10 min before reporting.','Recording missing: only answered calls > few seconds are recorded.','Can’t dial: check mic/browser permission, then try the mobile app.']},
 rep:{t:'Reports / dashboards',d:'Numbers wrong or report missing',steps:['Check the date filter and timezone (reports may use IST vs Dubai time).','Check owner/team filter — you may only see your own data.','Export to Excel and compare 2–3 sample leads against the lead records.','Still mismatched → ticket with report name + filters + the sample Lead IDs.']},
-other:{t:'Something else',d:'Not listed above',steps:[]}};
+req:{t:'Lead Requirement',d:'Need leads allocated — say which types',steps:[]},
+    other:{t:'Something else',d:'Not listed above',steps:[]}};
 const S={};const app=document.getElementById('app');
 function home(){app.innerHTML=`<h1>What’s broken in LeadSquared?</h1><p class="mu">Pick one. Most issues are fixed in 2 minutes with the steps. If not, you’ll get a ticket ID Surya works from — no WhatsApp chasing.</p>
 <div class="grid">${Object.entries(PB).map(([k,p],i)=>`<button class="chip" onclick="pb('${k}')"><span class="k mono">${i+1}</span><b>${p.t}</b><small>${p.d}</small></button>`).join('')}</div>
@@ -24,21 +25,23 @@ function pb(k){S.pb=k;const p=PB[k];if(!p.steps.length)return rca();
 app.innerHTML=`<div class="crumb"><a onclick="home()">Desk</a> / ${p.t}</div><h1>${p.t}</h1><div class="card"><h2>Try this first</h2><ol class="steps">${p.steps.map(s=>`<li>${s}</li>`).join('')}</ol>
 <div class="row"><button class="b g" onclick="fixed()">✓ Fixed</button><button class="b p" onclick="rca()">Still broken → raise ticket</button></div></div>`;}
 function fixed(){app.innerHTML=`<div class="card"><h1>Great — sorted.</h1><p class="mu">Nothing sent to Surya. Logged as self-solved on this device.</p><button class="b" onclick="home()">Back to Desk</button></div>`;try{const n=JSON.parse(localStorage.lsqFixed||'{}');n[S.pb]=(n[S.pb]||0)+1;localStorage.lsqFixed=JSON.stringify(n)}catch(e){}}
-function rca(){const p=PB[S.pb],me=JSON.parse(localStorage.lsqMe||'{}');
+const LT=['Client Lead','Agent Lead','Agency Lead','Meta Paid Ads','Google Ads','Data / Pool','Other'];
+function rca(){const p=PB[S.pb],me=JSON.parse(localStorage.lsqMe||'{}'),isReq=S.pb==='req';
 app.innerHTML=`<div class="crumb"><a onclick="home()">Desk</a> / ${p.t} / Ticket</div><h1>Raise a ticket</h1><p class="mu">Fill it once, properly — Surya fixes it without calling you back for details.</p>
 <form class="card" id="f"><div class="two"><div><label>Your name <i>*</i></label><input name="reporter_name" required value="${esc(me.n)}"></div><div><label>Work email <i>*</i></label><input name="reporter_email" type="email" required value="${esc(me.e)}"></div></div>
 <div class="two"><div><label>Team <i>*</i></label><select name="team" required><option value="">Select…</option><option>Sales RM</option><option>DST</option><option>Team Lead</option><option>Marketing</option><option>Admin/Ops</option></select></div>
 <div><label>Impact <i>*</i></label><select name="severity" required><option value="">Select…</option><option value="P1">P1 · whole team blocked</option><option value="P2">P2 · I’m blocked</option><option value="P3">P3 · annoying / how-to</option></select></div></div>
+<div id="ltbox"${isReq?'':' hidden'}><label>Types of lead required <i>*</i></label><div class="opts">${LT.map(x=>`<label class="opt"><input type="checkbox" name="lead_types" value="${x}"> ${x}</label>`).join('')}</div></div>
 <label>Lead ID / phone / email affected <i>*</i> <span class="mu">(type “none” if not lead-specific)</span></label><input name="lead_ref" class="mono" required>
-<label>What happened? <i>*</i></label><textarea name="summary" required minlength="10" placeholder="Steps you did, what you saw, exact error text"></textarea>
-<label>What should happen instead? <i>*</i></label><textarea name="expected" required></textarea>
+<label>${isReq?'How many leads, which country, and any other detail?':'What happened?'} <i>*</i></label><textarea name="summary" required minlength="10" placeholder="${isReq?'e.g. 20 UAE Client Leads, needed today':'Steps you did, what you saw, exact error text'}"></textarea>
+<label>${isReq?'When do you need them?':'What should happen instead?'} <i>*</i></label><textarea name="expected" required></textarea>
 <label>Already tried</label><input name="tried" value="${p.steps.length?'Followed Desk playbook: '+p.t:''}">
 <label>Screenshot link (optional) — Drive / Imgur / any URL</label><input name="screenshot_url" type="url" placeholder="https://">
 <div class="row"><button class="b p" id="sb">Create ticket</button><button type="button" class="b" onclick="pb(S.pb)">Back</button></div></form>`;
-f.onsubmit=async e=>{e.preventDefault();sb.disabled=true;sb.textContent='Creating…';const p=Object.fromEntries(new FormData(f));p.playbook=PB[S.pb].t;p.ua=navigator.userAgent;
+f.onsubmit=async e=>{e.preventDefault();const types=[...f.querySelectorAll('input[name=lead_types]:checked')].map(i=>i.value);if(isReq&&!types.length){alert('Select at least one type of lead required.');return;}sb.disabled=true;sb.textContent='Creating…';const p=Object.fromEntries(new FormData(f));delete p.lead_types;p.lead_types=types.join(', ');p.playbook=PB[S.pb].t;p.ua=navigator.userAgent;
 localStorage.lsqMe=JSON.stringify({n:p.reporter_name,e:p.reporter_email});S.t=await createTicket(p);S.p=p;done();};}
-function mail(){const t=S.t,p=S.p;const b=`Ticket ${t.code} (${p.severity})\nPlaybook: ${p.playbook}\nFrom: ${p.reporter_name} <${p.reporter_email}> · ${p.team}\nLead ref: ${p.lead_ref}\n\nWhat happened:\n${p.summary}\n\nExpected:\n${p.expected}\n\nTried: ${p.tried||'-'}\nScreenshot: ${p.screenshot_url||'-'}\n\nStatus: ${location.origin+location.pathname.replace(/index\.html$/,'')}t.html?t=${t.code}`;
-return `mailto:${SURYA}?cc=${encodeURIComponent(p.reporter_email)}&subject=${encodeURIComponent(`[${t.code}] ${p.severity} ${p.playbook} — ${p.reporter_name}`)}&body=${encodeURIComponent(b)}`;}
+function mail(){const t=S.t,p=S.p;const b=`Ticket ${t.code} (${p.severity})\nPlaybook: ${p.playbook}\nFrom: ${p.reporter_name} <${p.reporter_email}> · ${p.team}\nLead ref: ${p.lead_ref}\n${p.lead_types?`Types of lead required: ${p.lead_types}\n`:''}\nWhat happened:\n${p.summary}\n\nExpected:\n${p.expected}\n\nTried: ${p.tried||'-'}\nScreenshot: ${p.screenshot_url||'-'}\n\nStatus: ${location.origin+location.pathname.replace(/index\.html$/,'')}t.html?t=${t.code}`;
+return `mailto:${SURYA}?cc=${encodeURIComponent(p.reporter_email)}&subject=${encodeURIComponent(`[LSQ Support] [${t.code}] ${p.severity} ${p.playbook} — ${p.reporter_name}`)}&body=${encodeURIComponent(b)}`;}
 function done(){const t=S.t,db=t.mode==='db';
 app.innerHTML=`<div class="card"><div class="mu">Ticket created</div><div class="tid mono">${t.code}</div><span class="st">${t.status}</span>
 <p>${db?'Saved in the Dugasta support queue. Check your email for confirmation; if you don’t see it, use Email ticket below.':'<span class="warn">Saved on this device (central queue not switched on yet). <b>Send the email below</b> so Surya receives it.</span>'}</p>

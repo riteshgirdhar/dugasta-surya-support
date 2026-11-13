@@ -17,12 +17,12 @@ begin
   insert into lsq_support_tickets(severity,playbook,reporter_name,reporter_email,team,lead_ref,summary,expected,tried,screenshot_url,meta)
   values (left(p->>'severity',4),left(p->>'playbook',40),left(p->>'reporter_name',120),left(p->>'reporter_email',200),left(p->>'team',60),
           left(p->>'lead_ref',200),left(p->>'summary',4000),left(p->>'expected',2000),left(p->>'tried',2000),left(p->>'screenshot_url',500),
-          jsonb_build_object('ua',left(p->>'ua',300))) returning * into r;
+          jsonb_build_object('ua',left(p->>'ua',300),'lead_types',nullif(left(coalesce(p->>'lead_types',''),300),''))) returning * into r;
   return jsonb_build_object('code',r.code,'status',r.status,'created_at',r.created_at);
 end $$;
 create or replace function lsq_ticket_status(p_code text) returns jsonb language sql security definer set search_path=public as $$
   select jsonb_build_object('code',code,'status',status,'severity',severity,'playbook',playbook,'created_at',created_at,
-    'updated_at',updated_at,'summary',left(summary,280),'surya_note',surya_note)
+    'updated_at',updated_at,'summary',left(summary,280),'surya_note',surya_note,'lead_types',meta->>'lead_types')
   from lsq_support_tickets where code=upper(p_code) $$;
 revoke all on function lsq_ticket_create(jsonb), lsq_ticket_status(text) from public;
 grant execute on function lsq_ticket_create(jsonb), lsq_ticket_status(text) to anon, authenticated;
