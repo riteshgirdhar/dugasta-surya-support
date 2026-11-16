@@ -1,16 +1,10 @@
 {
-  "updated_at": "2026-11-16T10:54:35+05:30",
+  "updated_at": "2026-11-16T11:13:22+05:30",
   "timezone": "Asia/Kolkata",
   "window": "Mon\u2013Sat 09:00\u201318:00 IST",
   "status": "free",
   "status_label": "Free now",
   "slots": [
-    {
-      "start": "2026-11-16T11:30:00+05:30",
-      "end": "2026-11-16T12:00:00+05:30",
-      "label": "Mon 16 Nov \u00b7 11:30 AM IST",
-      "free": true
-    },
     {
       "start": "2026-11-16T12:00:00+05:30",
       "end": "2026-11-16T12:30:00+05:30",
@@ -753,6 +747,12 @@
       "start": "2026-11-24T10:30:00+05:30",
       "end": "2026-11-24T11:00:00+05:30",
       "label": "Tue 24 Nov \u00b7 10:30 AM IST",
+      "free": true
+    },
+    {
+      "start": "2026-11-24T11:00:00+05:30",
+      "end": "2026-11-24T11:30:00+05:30",
+      "label": "Tue 24 Nov \u00b7 11:00 AM IST",
       "free": true
     }
   ]
