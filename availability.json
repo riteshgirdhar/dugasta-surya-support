@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-11-19T13:41:11+05:30",
+  "updated_at": "2026-11-19T14:00:17+05:30",
   "timezone": "Asia/Kolkata",
   "window": "Mon–Sat 09:00–18:00 IST",
-  "status": "free",
-  "status_label": "Free now",
+  "status": "busy",
+  "status_label": "In a meeting",
   "slots": [
     {
       "start": "2026-11-19T14:30:00+05:30",
